@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+use App\Http\Controllers\moduloAutenticacion\PermisoController;
 
 class RolController extends Controller
 {

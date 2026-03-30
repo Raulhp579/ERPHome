@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,7 +37,8 @@ export class Login {
 
   constructor(
     private authService: AuthService,
-    private router:Router
+    private router:Router,
+    private cdr:ChangeDetectorRef
   ){} 
 
   loginError:string = ''
@@ -56,6 +57,7 @@ export class Login {
         error: (error) => {
           console.log(error);
           this.loginError = "Credenciales no validas"
+          this.cdr.detectChanges()
         }
       })
     }

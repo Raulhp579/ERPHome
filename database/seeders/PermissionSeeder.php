@@ -29,7 +29,10 @@ class PermissionSeeder extends Seeder
         ];
 
         foreach ($permisos as $permiso) {
-            Permission::create(['name' => $permiso]);
+            Permission::create([
+                'name' => $permiso,
+                'id_modulo' => 1
+            ]);
         }
 
         app(PermissionRegistrar::class)->forgetCachedPermissions();

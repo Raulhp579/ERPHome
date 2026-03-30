@@ -1,0 +1,151 @@
+/* Modern Slate Theme Colors */
+:root {
+  --primary-accent: #70E2B3;
+  --bg-dark: #0b0f19;
+  --bg-sidebar: #11161f;
+  --text-main: #ffffff;
+  --text-muted: #8b949e;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+/* El drawer container principal */
+.shell {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-dark) !important;
+}
+
+/* Estilos de la barra lateral (sidebar) forzando el fondo */
+.barra {
+  width: 260px !important;
+  background-color: var(--bg-sidebar) !important;
+  color: var(--text-main) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+.barra .mat-drawer-inner-container {
+  background-color: var(--bg-sidebar) !important;
+  color: var(--text-main) !important;
+}
+
+.sb-top {
+  display: flex;
+  align-items: center;
+  padding: 30px 24px;
+}
+
+.sb-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: var(--primary-accent);
+  color: var(--bg-sidebar);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+  margin-right: 14px;
+}
+
+.sb-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.sb-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.sb-subtitle {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.sb-section {
+  padding: 24px 24px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Enlaces del menú (Lista de Material) */
+.nav {
+  padding-top: 0 !important;
+}
+
+.nav .mat-mdc-list-item {
+  color: var(--text-muted) !important;
+  margin: 4px 16px !important;
+  width: calc(100% - 32px) !important;
+  position: relative;
+  transition: all 0.2s ease;
+  border-radius: 6px !important;
+}
+
+.nav .mat-mdc-list-item mat-icon {
+  color: inherit !important;
+  margin-right: 16px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+}
+
+.nav .mat-mdc-list-item-title {
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+
+/* Estado activo */
+.nav .mat-mdc-list-item.activo {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: var(--primary-accent) !important;
+}
+
+/* Línea verde a la izquierda del elemento activo (como en el diseño) */
+.nav .mat-mdc-list-item.activo::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--primary-accent);
+  border-radius: 4px 0 0 4px;
+}
+
+.nav .mat-mdc-list-item:hover:not(.activo) {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  color: var(--text-main) !important;
+}
+
+/* Zona principal (Content) */
+.content {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent !important;
+}
+
+.page {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  color: var(--text-main);
+}

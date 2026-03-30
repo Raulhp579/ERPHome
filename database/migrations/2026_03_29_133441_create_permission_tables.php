@@ -27,9 +27,11 @@ return new class extends Migration
             $table->id(); // permission id
             $table->string('name');
             $table->string('guard_name');
+            $table->unsignedBigInteger("id_modulo");
             $table->timestamps();
 
             $table->unique(['name', 'guard_name']);
+            $table->foreign("id_modulo")->references("id")->on("modulos")->onDelete("cascade");
         });
 
         /**

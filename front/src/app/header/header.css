@@ -1,0 +1,58 @@
+.topbar {
+  background-color: #0b0f19 !important; /* Mismo fondo de la pagina para que se integre transparente */
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02) !important;
+  box-shadow: none !important;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon {
+  color: #8b949e !important;
+}
+
+.app-title {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-btn {
+  background: transparent !important;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.user-btn:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.logo {
+  font-weight: 600;
+  color: #70E2B3;
+  font-size: 14px;
+}

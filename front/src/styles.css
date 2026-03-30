@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+/* Global Theme Colors */
+:root {
+  --primary-accent: #00f2ad; /* Verde menta vibrante */
+  --bg-dark: #1e293b; /* Slate 800: Azul grisáceo oscuro pero suave (NO NEGRO) */
+  --bg-sidebar: #334155; /* Slate 700: Gris azulado un tono más claro para destacar el menú */
+  --text-main: #f8fafc; /* Blanco suave */
+  --text-muted: #94a3b8; /* Gris azulado claro para texto secundario */
+  --border-subtle: rgba(255, 255, 255, 0.08); /* Borde claro y sutil */
+}
+

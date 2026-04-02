@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 use App\Http\Controllers\moduloAutenticacion\PermisoController;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class RolController extends Controller
 {
@@ -20,11 +22,20 @@ class RolController extends Controller
     {
         try{
             if(Auth::user()->can('ver_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_roles'))){
-                $roles = Role::all();
-                return response()->json([
-                    'message' => 'Roles obtenidos correctamente',
-                    'data' => $roles
-                ], 200);
+                $role = DB::query();
+
+                return DataTables::of($role)
+                    ->editColumn('name', function($role){
+                        return $role->name;
+                    })
+                    ->editColumn('created_at', function($role){
+                        return $role->created_at->format('d/m/Y');
+                    })
+                    ->addColumn('actions', function(){
+                        return '<button id="editarRol" class="btn btn-primary btn-sm">Editar</button> <button id="eliminarRol" class="btn btn-danger btn-sm">Eliminar</button>';
+                    })
+                    ->rawColumns(['actions'])
+                    ->make(true);
             }else{
                 return response()->json([
                     'message' => 'No tienes permiso para ver los roles',

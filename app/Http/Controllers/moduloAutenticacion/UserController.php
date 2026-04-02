@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\moduloAutenticacion\PermisoController;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -19,11 +21,33 @@ class UserController extends Controller
     {
         try{
             if(Auth::user()->can('ver_usuarios') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_usuarios'))){
-                $usuarios = User::all();
-                return response()->json([
-                    'message' => 'Usuarios obtenidos correctamente',
-                    'data' => $usuarios
-                ], 200);
+                $usuarios = User::query();
+
+                return DataTables::of($usuarios)
+                    ->editColumn('name', function($usuario){
+                        return $usuario->name;
+                    })
+                    ->editColumn('email', function($usuario){
+                        return $usuario->email;
+                    })
+                    ->editColumn('rol', function($usuario){
+                        return $usuario->roles->first()->name ?? 'Sin Rol';
+                    })
+                    ->editColumn('created_at', function($usuario){
+                        return $usuario->created_at->format('d/m/Y');
+                    })
+                    ->addColumn('actions', function($usuario){
+                        return '<div class="action-buttons">
+                            <button class="btn-icon edit" title="Editar" data-id="'.$usuario->id.'">
+                                <i class="material-icons">edit_note</i>
+                            </button>
+                            <button class="btn-icon delete" title="Eliminar" data-id="'.$usuario->id.'">
+                                <i class="material-icons">delete_outline</i>
+                            </button>
+                        </div>';
+                    })
+                    ->rawColumns(['actions'])
+                    ->make(true);
             }else{
                 return response()->json([
                     'message' => 'No tienes permiso para ver los usuarios',

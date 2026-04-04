@@ -30,19 +30,23 @@
         <form class="modal-form">
           <div class="form-group">
             <label>Nombre Completo</label>
-            <input type="text" placeholder="Ej: Juan Pérez">
+            <input type="text" placeholder="Ej: Juan Pérez" [(ngModel)]="usuarioCrear.name" name="name">
           </div>
           <div class="form-group">
             <label>Correo Electrónico</label>
-            <input type="email" placeholder="juan@ejemplo.com">
+            <input type="email" placeholder="juan@ejemplo.com" [(ngModel)]="usuarioCrear.email" name="email">
           </div>
           <div class="form-group">
             <label>Contraseña</label>
-            <input type="password" placeholder="••••••••">
+            <input type="password" placeholder="••••••••" [(ngModel)]="usuarioCrear.password" name="password">
+          </div>
+          <div class="form-group">
+            <label>Confirmar Contraseña</label>
+            <input type="password" placeholder="••••••••" [(ngModel)]="usuarioCrear.password_confirmation" name="password_confirmation">
           </div>
           <div class="form-group">
             <label>Rol</label>
-            <select>
+            <select [(ngModel)]="usuarioCrear.rol" name="rol">
               <option value="admin">Administrador</option>
               <option value="user">Usuario</option>
             </select>
@@ -51,7 +55,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn-secondary" (click)="cerrarModales()">Cancelar</button>
-        <button class="btn-primary">Crear Usuario</button>
+        <button class="btn-primary" (click)="guardarUsuario()">Crear Usuario</button>
       </div>
     </div>
   </div>
@@ -69,15 +73,23 @@
         <form class="modal-form">
           <div class="form-group">
             <label>Nombre Completo</label>
-            <input type="text" value="Cargando...">
+            <input type="text" value="Cargando..." [(ngModel)]="usuario.name" name="name">
           </div>
           <div class="form-group">
             <label>Correo Electrónico</label>
-            <input type="email" value="Cargando...">
+            <input type="email" value="Cargando..." [(ngModel)]="usuario.email" name="email">
+          </div>
+          <div class="form-group">
+            <label>Contraseña (Opcional)</label>
+            <input type="password" placeholder="••••••••" name="password">
+            <small style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 4px; display: block;">
+              Deja en blanco para mantener la actual.
+            </small>
           </div>
           <div class="form-group">
             <label>Rol</label>
-            <select>
+            <select [(ngModel)]="usuario.rol" name="rol">
+              <option value="">Sin Rol</option>
               <option value="admin">Administrador</option>
               <option value="user">Usuario</option>
             </select>
@@ -86,7 +98,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn-secondary" (click)="cerrarModales()">Cancelar</button>
-        <button class="btn-primary">Guardar Cambios</button>
+        <button class="btn-primary" (click)="guardarCambios()">Guardar Cambios</button>
       </div>
     </div>
   </div>

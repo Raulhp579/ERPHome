@@ -4,19 +4,23 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UsuarioService } from '../servicios/usuario-service';
+import { FormsModule } from "@angular/forms";
+import { firstValueFrom } from 'rxjs';
 
 declare var $: any;
 
 @Component({
   selector: 'app-gestion-usuarios-roles-permisos',
   standalone: true,
-  imports: [MatIconModule, CommonModule],
+  imports: [MatIconModule, CommonModule, FormsModule],
   templateUrl: './gestion-usuarios-roles-permisos.html',
   styleUrl: './gestion-usuarios-roles-permisos.css',
 })
 export class GestionUsuariosRolesPermisos implements OnInit {
   showModalCrear = false;
   showModalEditar = false;
+  usuario: any = {};
+  usuarioCrear:any={};
 
   constructor(
     private router: Router,
@@ -61,7 +65,14 @@ export class GestionUsuariosRolesPermisos implements OnInit {
     this.showModalCrear = true;
   }
 
-  abrirModalEditar() {
+
+  async getUsuario(id:number) {
+    const usuario = await firstValueFrom(this.usuarioService.getUsuario(id));
+    return usuario.data;
+  }
+
+  async abrirModalEditar(id:number) {
+    this.usuario = await this.getUsuario(id);
     this.showModalEditar = true;
     this.cdr.detectChanges();
   }
@@ -69,6 +80,39 @@ export class GestionUsuariosRolesPermisos implements OnInit {
   cerrarModales() {
     this.showModalCrear = false;
     this.showModalEditar = false;
+    this.usuario = {};
+  }
+
+  guardarCambios() {
+    if (!this.usuario.id) return;
+    
+
+    this.usuarioService.updateUsuario(this.usuario.id, this.usuario).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Guardado',
+          text: 'Los cambios se han guardado correctamente',
+          icon: 'success',
+          customClass: {
+            title: 'custom-swal-title',
+            htmlContainer: 'custom-swal-text',
+          },
+        });
+        this.cerrarModales();
+        this.cargarTabla();
+      },
+      error: (error) => {
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo guardar los cambios',
+          icon: 'error',
+          customClass: {
+            title: 'custom-swal-title',
+            htmlContainer: 'custom-swal-text',
+          },
+        });
+      }
+    });
   }
   ngOnInit(): void {
     this.cargarTabla();
@@ -191,7 +235,8 @@ export class GestionUsuariosRolesPermisos implements OnInit {
             .off('click')
             .on('click', (e: any) => {
               e.stopPropagation();
-              this.abrirModalEditar();
+              const id = $(e.currentTarget).data('id');
+              this.abrirModalEditar(id);
             });
 
           $('.btn-icon.delete').attr(
@@ -209,4 +254,47 @@ export class GestionUsuariosRolesPermisos implements OnInit {
       },
     });
   };
+
+  guardarUsuario(){
+
+    if(this.usuarioCrear.password !== this.usuarioCrear.password_confirmation){
+      Swal.fire({
+        title: 'Error',
+        text: 'Las contraseñas no coinciden',
+        icon: 'error',
+        customClass: {
+          title: 'custom-swal-title',
+          htmlContainer: 'custom-swal-text',
+        },
+      });
+      return;
+    }
+
+    this.usuarioService.createUsuario(this.usuarioCrear).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Guardado',
+          text: 'Los cambios se han guardado correctamente',
+          icon: 'success',
+          customClass: {
+            title: 'custom-swal-title',
+            htmlContainer: 'custom-swal-text',
+          },
+        });
+        this.cerrarModales();
+        this.cargarTabla();
+      },
+      error: (error) => {
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo guardar los cambios',
+          icon: 'error',
+          customClass: {
+            title: 'custom-swal-title',
+            htmlContainer: 'custom-swal-text',
+          },
+        });
+      }
+    });
+  }
 }

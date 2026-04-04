@@ -74,9 +74,18 @@ class UserController extends Controller
                     'email' => $request->email,
                     'password' => Hash::make($request->password)
                 ]);
+                $usuario->assignRole($request->rol);
+                $usuario->refresh();
+                $user = [
+                    "id"=>$usuario->id,
+                    "name"=>$usuario->name,
+                    "email"=>$usuario->email,
+                    "password"=>$usuario->password,
+                    "rol"=>$usuario->roles->first()->name??""
+                ];
                 return response()->json([
                     'message' => 'Usuario creado correctamente',
-                    'data' => $usuario
+                    'data' => $user
                 ], 200);
             }else{
                 return response()->json([
@@ -100,9 +109,16 @@ class UserController extends Controller
         try{
             if(Auth::user()->can('ver_usuarios') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_usuarios'))){
                 $usuario = User::find($id);
+                $user = [
+                    "id"=>$usuario->id,
+                    "name"=>$usuario->name,
+                    "email"=>$usuario->email,
+                    "password"=>$usuario->password,
+                    "rol"=>$usuario->roles->first()->name??""
+                ];
                 return response()->json([
                     'message' => 'Usuario obtenido correctamente',
-                    'data' => $usuario
+                    'data' => $user
                 ], 200);
             }else{
                 return response()->json([
@@ -126,14 +142,38 @@ class UserController extends Controller
         try{
             if(Auth::user()->can('actualizar_usuarios') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('actualizar_usuarios'))){
                 $usuario = User::find($id);
-                $usuario->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password)
-                ]);
+                if(isset($request->password)){
+                    $usuario->update([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'password' => Hash::make($request->password)
+                    ]);
+                }else{
+                    $usuario->update([
+                        'name' => $request->name,
+                        'email' => $request->email
+                    ]);
+                }
+
+                if(isset($request->rol)){
+                    $usuario->roles()->detach();
+                    $usuario->assignRole($request->rol);
+                }else{
+                    $usuario->roles()->detach();
+                }
+
+                $usuario->refresh();
+
+                $user = [
+                    "id"=>$usuario->id,
+                    "name"=>$usuario->name,
+                    "email"=>$usuario->email,
+                    "password"=>$usuario->password,
+                    "rol"=>$usuario->roles->first()->name??""
+                ];
                 return response()->json([
                     'message' => 'Usuario actualizado correctamente',
-                    'data' => $usuario
+                    'data' => $user
                 ], 200);
             }else{
                 return response()->json([

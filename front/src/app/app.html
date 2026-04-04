@@ -2,9 +2,9 @@
     <mat-drawer #drawer class="barra" [mode]="isMobile() ? 'over' : 'side'" >
       <!-- Sidebar header -->
       <div class="sb-top">
-        <div class="sb-avatar">GF</div>
+        <div class="sb-avatar">GH</div>
         <div class="sb-meta">
-          <div class="sb-title">Gestor Fichajes</div>
+          <div class="sb-title">Gestor Home</div>
           <div class="sb-subtitle">Panel de control</div>
         </div>
       </div>
@@ -21,10 +21,16 @@
           <mat-icon matListItemIcon>home</mat-icon>
           <span matListItemTitle>Home</span>
         </a>
+
+        <div class="sb-section">Admin</div>
         <a mat-list-item routerLink="/usuarios" routerLinkActive="activo">
           <mat-icon matListItemIcon>group</mat-icon>
-          <span matListItemTitle>Administración Usuarios</span>
+          <span matListItemTitle>Usuarios</span>
         </a>
+        <a mat-list-item routerLink="/roles" routerLinkActive="activo">
+          <mat-icon matListItemIcon>account_tree</mat-icon>
+          <span matListItemTitle>Roles</span>
+        </a>  
 
         
       </mat-nav-list>

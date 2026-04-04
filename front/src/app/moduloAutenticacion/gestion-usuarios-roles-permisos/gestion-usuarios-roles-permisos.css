@@ -354,3 +354,34 @@
     box-shadow: inset 0 0 0 1px rgba(0, 242, 173, 0.1) !important;
     transition: all 0.2s ease !important;
 }
+/* =========================================
+   CUSTOM SWEETALERT2 STYLES
+   ========================================= */
+
+::ng-deep .custom-swal-title {
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important; /* Más espacio entre líneas si el título es largo */
+    color: #ffffff !important;
+    margin-top: 15px !important;
+}
+
+::ng-deep .custom-swal-text {
+    font-size: 16px !important;
+    line-height: 1.6 !important; /* Más espacio entre líneas de texto */
+    color: var(--text-muted) !important;
+    margin-top: 20px !important; /* Espacio entre el título y el texto */
+    padding: 0 10px !important;
+}
+
+::ng-deep .swal2-popup {
+    background: rgba(30, 41, 59, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    padding: 2.5em 1em !important;
+}
+
+::ng-deep .swal2-icon {
+    margin-top: 10px !important;
+}

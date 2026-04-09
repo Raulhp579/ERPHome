@@ -47,8 +47,8 @@ class modulo extends Command
 
         $bloque = <<<SQL
 
-INSERT INTO `modulos` (`nombre`, `created_at`, `updated_at`) VALUES
-('{$nombre}', NOW(), NOW());
+INSERT INTO `modulos` (`nombre`, `icono`, `estado`, `created_at`, `updated_at`) VALUES
+('{$nombre}', 'extension', 1, NOW(), NOW());
 
 SET @id_modulo = LAST_INSERT_ID();
 

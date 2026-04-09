@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('modulos', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
+            $table->string("icono")->nullable();
+            $table->boolean("estado")->default(true);
             $table->timestamps();
         });
     }

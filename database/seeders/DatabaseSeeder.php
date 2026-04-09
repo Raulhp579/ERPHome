@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Modulo::create([
-            'nombre' => 'autenticacion'
+            'nombre' => 'autenticacion',
+            'icono' => 'admin_panel_settings',
+            'estado' => true
         ]);
 
         $this->call(PermissionSeeder::class);

@@ -22,8 +22,7 @@ class RolController extends Controller
     {
         try{
             if(Auth::user()->can('ver_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_roles'))){
-                $role = DB::query();
-
+                $role = Role::all();
                 return DataTables::of($role)
                     ->editColumn('name', function($role){
                         return $role->name;

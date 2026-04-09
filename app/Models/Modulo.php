@@ -8,8 +8,11 @@ use Spatie\Permission\Models\Permission;
 class Modulo extends Model
 {
     protected $table = "modulos";
-    protected $fillable = ["nombre"];
-    protected $casts = ["id" => "integer"];
+    protected $fillable = ["nombre", "icono", "estado"];
+    protected $casts = [
+        "id" => "integer",
+        "estado" => "boolean"
+    ];
 
     public function permisos()
     {

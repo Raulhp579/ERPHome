@@ -43,7 +43,9 @@ class ModuloController extends Controller
         try{
             if(Auth::user()->hasRole('admin')){
                 $modulo = Modulo::create([
-                    'nombre' => $request->nombre
+                    'nombre' => $request->nombre,
+                    'icono' => $request->icono ?? null,
+                    'estado' => $request->has('estado') ? $request->estado : true
                 ]);
                 return response()->json([
                     'message' => 'Modulo creado correctamente',
@@ -98,7 +100,9 @@ class ModuloController extends Controller
             if(Auth::user()->hasRole('admin')){
                 $modulo = Modulo::find($id);
                 $modulo->update([
-                    'nombre' => $request->nombre
+                    'nombre' => $request->nombre,
+                    'icono' => $request->has('icono') ? $request->icono : $modulo->icono,
+                    'estado' => $request->has('estado') ? $request->estado : $modulo->estado
                 ]);
                 return response()->json([
                     'message' => 'Modulo actualizado correctamente',

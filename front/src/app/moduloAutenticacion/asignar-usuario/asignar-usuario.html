@@ -1,1 +1,75 @@
-<p>asignar-usuario works!</p>
+<div class="container">
+  <!-- Header Section -->
+  <header class="header-section">
+    <div class="title-group">
+      <h1 class="main-title">Asignar Roles y Permisos</h1>
+      <span class="subtitle">Personalice el acceso granular para este usuario exclusivo</span>
+    </div>
+    <button mat-button class="btn-cancel">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </button>
+  </header>
+
+  <!-- User & Role Selection -->
+  <section class="selection-card">
+    <div class="selection-grid">
+      <!-- User Info (Read Only) -->
+       @if (selectedUser) {
+      <div class="user-info-display">
+        <div class="sb-avatar user-avatar-large">{{selectedUser.avatar}}</div>
+        <div class="user-details">
+          <span class="user-name-label">Perfil de Usuario</span>
+          <div class="user-name-value">{{selectedUser.name}}</div>
+          <div class="user-email-value">{{selectedUser.email}}</div>
+        </div>
+      </div>
+    }
+      <!-- Role Selection -->
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label>Rol Maestro</mat-label>
+        <mat-select placeholder="Seleccione un rol base">
+          <mat-option *ngFor="let role of roles" [value]="role.id">
+            {{role.name}}
+          </mat-option>
+        </mat-select>
+        <mat-icon matSuffix style="color: var(--primary-accent)">verified_user</mat-icon>
+      </mat-form-field>
+    </div>
+  </section>
+
+  <!-- Modules & Permissions Grid -->
+  <section class="modules-section">
+    <span class="section-label">Configuración por Módulo</span>
+    
+    <div class="modules-grid">
+      <div class="module-card" *ngFor="let module of modules">
+        <div class="module-header">
+          <div class="module-icon-box">
+            <mat-icon>{{module.icon}}</mat-icon>
+          </div>
+          <span class="module-name">{{module.name}}</span>
+        </div>
+        
+        <div class="permissions-list">
+          <div class="permission-item" *ngFor="let perm of module.permissions">
+            <span class="perm-label">
+              <mat-icon>check_circle_outline</mat-icon>
+              {{perm.name}}
+            </span>
+            <mat-slide-toggle [checked]="perm.active" color="primary"></mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Actions -->
+  <footer class="actions-bar">
+    <button mat-button class="btn-cancel">Cancelar</button>
+    <button mat-raised-button class="btn-save">
+      <mat-icon>save</mat-icon>
+      Guardar Configuración
+    </button>
+  </footer>
+</div>

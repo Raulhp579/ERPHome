@@ -163,4 +163,19 @@ class PermisoController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getPermisoPorModulo(string $id){
+        try{
+            $permisos = Permission::where('id_modulo', $id)->get();
+            return response()->json([
+                'message' => 'Permisos obtenidos correctamente',
+                'data' => $permisos
+            ], 200);
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'Error al obtener los permisos',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

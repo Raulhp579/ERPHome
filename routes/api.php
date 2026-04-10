@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('permiso', PermisoController::class);
     Route::apiResource('modulo', ModuloController::class);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('permiso/modulo/{id}', [PermisoController::class, 'getPermisoPorModulo']);
 });
 
 

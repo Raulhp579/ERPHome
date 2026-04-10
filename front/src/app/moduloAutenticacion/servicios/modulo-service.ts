@@ -7,6 +7,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ModuloService {
   constructor(private http: HttpClient) {}
 
+  private url:string = "api/modulo"
+
   private getHeaders() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -16,7 +18,7 @@ export class ModuloService {
   }
 
   getModulos() {
-    return this.http.get('http://localhost:8000/api/modulo', { headers: this.getHeaders() }); //falta terminar asignar usuario
+    return this.http.get(this.url, { headers: this.getHeaders() }); 
   }
   
 }

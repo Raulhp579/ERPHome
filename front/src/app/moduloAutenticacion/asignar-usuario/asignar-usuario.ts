@@ -12,6 +12,8 @@ import { ActivatedRoute, Route } from '@angular/router';
 import { UsuarioService } from '../servicios/usuario-service';
 import { firstValueFrom } from 'rxjs';
 import { RolService } from '../servicios/rol-service';
+import { PermisoService } from '../servicios/permiso-service';
+import { ModuloService } from '../servicios/modulo-service';
 
 @Component({
   selector: 'app-asignar-usuario',
@@ -36,6 +38,8 @@ export class AsignarUsuario implements OnInit {
     private usuarioService: UsuarioService,
     private cdr: ChangeDetectorRef,
     private rolService: RolService,
+    private permisoService: PermisoService,
+    private moduloService:ModuloService
   ) {}
   idUser: number = 0;
   selectedUserRaw: any;
@@ -47,8 +51,13 @@ export class AsignarUsuario implements OnInit {
     this.roles = roles.data;
   }
 
-  async getModulos() {
-    
+  async getModulosJuntoPermisos() {
+    const modulos:any = await firstValueFrom(this.moduloService.getModulos());
+    modulos.forEach((modulo:any) => {
+      const permisos = firstValueFrom(this.permisoService.getPermisosPorModulo(modulo.id));
+      modulo.permisos = permisos;
+    });
+    console.log(modulos)
   }
 
   async ngOnInit(): Promise<void> {
@@ -57,6 +66,7 @@ export class AsignarUsuario implements OnInit {
     this.selectedUser = this.selectedUserRaw.data;
     this.selectedUser.avatar = this.selectedUser.name.substring(0, 2).toUpperCase();
     await this.getRoles();
+    await this.getModulosJuntoPermisos();
     this.cdr.detectChanges();
   }
 

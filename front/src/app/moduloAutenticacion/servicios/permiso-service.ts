@@ -36,4 +36,8 @@ export class PermisoService {
   deletePermiso(id: number):Observable<any>{
     return this.http.delete<any>(`${this.url}/${id}`, { headers: this.getHeaders() });
   }
+
+  getPermisosPorModulo(id:number):Observable<any>{
+    return this.http.get<any>(`${this.url}/modulo/${id}`, { headers: this.getHeaders() });
+  }
 }

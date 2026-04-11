@@ -17,11 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(100)->create();
         Role::create([
             'name' => 'admin'
         ]);
 
+        Role::create([
+            'name' => 'usuario'
+        ]);
+
+        User::factory(100)->create();
+        
         Modulo::create([
             'nombre' => 'autenticacion',
             'icono' => 'admin_panel_settings',

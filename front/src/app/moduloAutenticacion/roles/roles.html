@@ -1,1 +1,71 @@
-<p>roles works!</p>
+<div class="container-gestion">
+  <!-- Header Section -->
+  <div class="header-gestion">
+    <div class="title-section">
+      <h1>Roles del Sistema</h1>
+      <p>Administra los roles disponibles, permisos y jerarquía dentro de la plataforma.</p>
+    </div>
+    
+    <button class="btn-add" (click)="abrirModalCrear()">
+      <mat-icon>add_moderator</mat-icon>
+      Nuevo Rol
+    </button>
+  </div>
+
+  <!-- Table Card -->
+  <div class="card-table">
+    <table id="rolesTable" class="tabla-moderna display nowrap" style="width:100%"></table>
+  </div>
+
+  <!-- Modal Crear Rol -->
+  @if (showModalCrear()) {
+  <div class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Crear Nuevo Rol</h2>
+        <button class="btn-close" (click)="cerrarModales()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="modal-form">
+          <div class="form-group">
+            <label>Nombre del Rol</label>
+            <input type="text" [(ngModel)]="nombreRolCrear" placeholder="Ej: Superadmin, Editor, Moderador..." name="name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="cerrarModales()">Cancelar</button>
+        <button class="btn-primary" (click)="crearRol()">Crear Rol</button>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Modal Editar Rol -->
+  @if (showModalEditar()) {
+  <div class="modal-overlay">
+    <div class="modal-card editing">
+      <div class="modal-header">
+        <h2>Editar Rol</h2>
+        <button class="btn-close" (click)="cerrarModales()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="modal-form">
+          <div class="form-group">
+            <label>Nombre del Rol</label>
+            <input type="text" [(ngModel)]="nombreEditarRol"  value="" name="name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="cerrarModales()">Cancelar</button>
+        <button class="btn-primary" (click)="editarRol()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+  }
+</div>

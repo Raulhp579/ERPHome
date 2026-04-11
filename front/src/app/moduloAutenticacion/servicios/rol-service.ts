@@ -36,4 +36,12 @@ export class RolService {
   deleteRol(id: number):Observable<any>{
     return this.http.delete<any>(`${this.url}/${id}`, { headers: this.getHeaders() });
   }
+
+  getRolUsuario(id: number):Observable<any>{
+    return this.http.get<any>(`${this.url}/usuario/${id}`, { headers: this.getHeaders() });
+  }
+
+  updateRolUsuario(id: number, rol: any):Observable<any>{
+    return this.http.put<any>(`${this.url}/usuario/${id}`, rol, { headers: this.getHeaders() });
+  }
 }

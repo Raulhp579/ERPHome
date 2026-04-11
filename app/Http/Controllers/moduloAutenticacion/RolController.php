@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 use App\Http\Controllers\moduloAutenticacion\PermisoController;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -57,7 +58,8 @@ class RolController extends Controller
         try{
             if(Auth::user()->can('crear_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('crear_roles'))){
                 $rol = Role::create([
-                    'name' => $request->name
+                    'name' => $request->name,
+                    'guard_name' => 'web'
                 ]);
                 return response()->json([
                     'message' => 'Rol creado correctamente',
@@ -139,7 +141,13 @@ class RolController extends Controller
     {
         try{
             if(Auth::user()->can('eliminar_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('eliminar_roles'))){
-                $rol = Role::find($id);
+                $rol = Role::where("id",$id)->first();
+                if($rol->name == 'admin'){
+                    return response()->json([
+                        'message' => 'No se puede eliminar el rol admin',
+                        'data' => null
+                    ], 403);
+                }
                 $rol->delete();
                 return response()->json([
                     'message' => 'Rol eliminado correctamente',
@@ -190,6 +198,33 @@ class RolController extends Controller
         }catch(Exception $e){
             return response()->json([
                 'message' => 'Error al eliminar el permiso',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function obtenerRolUsuario(string $id){
+        $usuario = User::where("id", $id)->first();
+        $rol = $usuario->roles->first();
+        return response()->json([
+            'message' => 'Rol obtenido correctamente',
+            'data' => $rol
+        ], 200);
+    }
+
+    public function updateRolUsuario(Request $request, string $id){
+        try{
+            $usuario = User::where("id", $id)->first();
+            $usuario->roles()->detach();
+            $usuario->assignRole($request->role_id);
+            app()[PermissionRegistrar::class]->forgetCachedPermissions();
+            return response()->json([
+                'message' => 'Rol actualizado correctamente',
+                'data' => $usuario
+            ], 200);
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'Error al actualizar el rol',
                 'error' => $e->getMessage()
             ], 500);
         }

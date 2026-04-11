@@ -106,8 +106,7 @@ body div.dt-container .dt-paging .dt-paging-button.disabled:active {
 
 .btn-icon.edit:hover {
   transform: translateY(-2px);
-  background: #ffffff !important;
-  color: var(--primary-accent) !important;
+  filter: brightness(1.1);
   box-shadow: 0 4px 15px rgba(0, 242, 173, 0.4);
 }
 
@@ -118,8 +117,7 @@ body div.dt-container .dt-paging .dt-paging-button.disabled:active {
 
 .btn-icon.delete:hover {
   transform: translateY(-2px);
-  background: #ffffff !important;
-  color: #ef4444 !important;
+  filter: brightness(1.1);
   box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
 }
 

@@ -8,7 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, RouterLink } from '@angular/router';
 import { UsuarioService } from '../servicios/usuario-service';
 import { firstValueFrom } from 'rxjs';
 import { RolService } from '../servicios/rol-service';
@@ -28,7 +28,8 @@ import { ModuloService } from '../servicios/modulo-service';
     MatSlideToggleModule,
     MatDividerModule,
     MatChipsModule,
-  ],
+    RouterLink
+],
   templateUrl: './asignar-usuario.html',
   styleUrl: './asignar-usuario.css',
 })
@@ -45,6 +46,8 @@ export class AsignarUsuario implements OnInit {
   selectedUserRaw: any;
   selectedUser: any;
   roles:any[] = [];
+  modules:{name:string, icon:string, permissions:any[]}[] = [];
+  permisosDeUnUsuario:any[] = [];
 
   async getRoles() {
     const roles = await firstValueFrom(this.rolService.getRoles());
@@ -53,12 +56,35 @@ export class AsignarUsuario implements OnInit {
 
   async getModulosJuntoPermisos() {
     const modulos:any = await firstValueFrom(this.moduloService.getModulos());
-    modulos.forEach((modulo:any) => {
-      const permisos = firstValueFrom(this.permisoService.getPermisosPorModulo(modulo.id));
-      modulo.permisos = permisos;
-    });
-    console.log(modulos)
+
+    this.modules = await Promise.all(
+      modulos.data.map(async (modulo:any) => {
+        const permisos:any = await firstValueFrom(this.permisoService.getPermisosPorModulo(modulo.id));
+        return {
+          name: modulo.nombre,
+          icon: modulo.icono,
+          permissions: permisos.data
+        };
+      })
+    );
   }
+
+  async getPermisosDeUnUsuario(){
+    const permisos = await firstValueFrom(this.permisoService.getPermisosDeUnUsuario(this.idUser));
+    this.permisosDeUnUsuario = permisos.data.map((permiso:any) => permiso.id);
+  }
+
+  async getRolUsuario(){
+    const rol = await firstValueFrom(this.rolService.getRolUsuario(this.idUser));
+    this.selectedUser.rol = rol.data;   
+  }
+
+  async updateRolUsuario(id:number){
+    await firstValueFrom(this.rolService.updateRolUsuario(this.idUser, {role_id: id}));
+    await this.getRolUsuario();
+    this.cdr.detectChanges();
+  }
+  
 
   async ngOnInit(): Promise<void> {
     this.idUser = this.route.snapshot.params['id'];
@@ -66,49 +92,22 @@ export class AsignarUsuario implements OnInit {
     this.selectedUser = this.selectedUserRaw.data;
     this.selectedUser.avatar = this.selectedUser.name.substring(0, 2).toUpperCase();
     await this.getRoles();
+    await this.getRolUsuario();
     await this.getModulosJuntoPermisos();
+    await this.getPermisosDeUnUsuario();
     this.cdr.detectChanges();
   }
 
+  async asignarPermisoUsuario(id:number){
+    await firstValueFrom(this.permisoService.asignarPermisoUsuario(id, this.idUser));
+    await this.getPermisosDeUnUsuario();
+    this.cdr.detectChanges();
+  }
 
-  modules = [
-    {
-      name: 'Usuarios',
-      icon: 'people',
-      permissions: [
-        { id: 'u_read', name: 'Leer', active: true },
-        { id: 'u_create', name: 'Crear', active: false },
-        { id: 'u_update', name: 'Editar', active: false },
-        { id: 'u_delete', name: 'Eliminar', active: false },
-      ],
-    },
-    {
-      name: 'Ventas',
-      icon: 'shopping_cart',
-      permissions: [
-        { id: 'v_read', name: 'Leer', active: true },
-        { id: 'v_create', name: 'Crear', active: true },
-        { id: 'v_update', name: 'Editar', active: false },
-        { id: 'v_print', name: 'Imprimir', active: true },
-      ],
-    },
-    {
-      name: 'Inventario',
-      icon: 'inventory_2',
-      permissions: [
-        { id: 'i_read', name: 'Leer', active: true },
-        { id: 'i_manage', name: 'Gestionar Stock', active: false },
-        { id: 'i_reports', name: 'Reportes', active: false },
-      ],
-    },
-    {
-      name: 'Configuración',
-      icon: 'settings',
-      permissions: [
-        { id: 's_read', name: 'Leer', active: true },
-        { id: 's_system', name: 'Ajustes Sistema', active: false },
-        { id: 's_backup', name: 'Backups', active: false },
-      ],
-    },
-  ];
+  async quitarPermisoUsuario(id:number){
+    await firstValueFrom(this.permisoService.quitarPermisoUsuario(id, this.idUser));
+    await this.getPermisosDeUnUsuario();
+    this.cdr.detectChanges();
+  }
+
 }

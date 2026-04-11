@@ -40,4 +40,16 @@ export class PermisoService {
   getPermisosPorModulo(id:number):Observable<any>{
     return this.http.get<any>(`${this.url}/modulo/${id}`, { headers: this.getHeaders() });
   }
+
+  getPermisosDeUnUsuario(id:number):Observable<any>{
+    return this.http.get<any>(`${this.url}/usuario/${id}`, { headers: this.getHeaders() });
+  }
+
+  asignarPermisoUsuario(id:number, idUser:number):Observable<any>{
+    return this.http.post<any>(`${this.url}/asignar/${idUser}`, { id }, { headers: this.getHeaders() });
+  }
+
+  quitarPermisoUsuario(id:number, idUser:number):Observable<any>{
+    return this.http.post<any>(`${this.url}/quitar/${idUser}`, { id }, { headers: this.getHeaders() });
+  }
 }

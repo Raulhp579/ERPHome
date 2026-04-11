@@ -155,6 +155,8 @@ export class GestionUsuariosRolesPermisos implements OnInit {
     const tabla = $('#usuariosTable').DataTable({
       language: this.lang,
       lengthChange: false,
+      processing: true,
+      serverSide: true,
       ajax: {
         url: '/api/user',
         headers: {

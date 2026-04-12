@@ -8,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl,Validators } from '@angular/forms';
 import { AuthService } from '../servicios/auth-service';
 import { Router } from '@angular/router';
-import { privateDecrypt } from 'crypto';
 
 @Component({
   selector: 'app-login',
@@ -48,11 +47,8 @@ export class Login {
     this.loginError= ''
     if(this.loginForm.valid){
       this.authService.login(this.loginForm.value).subscribe({
-        next: (response) => {
-          localStorage.setItem('token', response.access_token);
-          if (localStorage.getItem('token')) {
-            this.router.navigate(['/home']);
-          }
+        next: () => {
+          this.router.navigate(['/home']);
         },
         error: (error) => {
           console.log(error);

@@ -11,21 +11,17 @@
     <!-- User Info Card (Read Only view) -->
     <section class="info-card">
       <div class="user-info-display">
-        <div class="sb-avatar user-avatar-large">{{ user.avatar }}</div>
+        <div class="sb-avatar user-avatar-large">{{ userAvatar() }}</div>
         <div class="user-details">
-          <span class="user-role-label">{{ user.role }}</span>
-          <div class="user-name-value">{{ user.name }}</div>
+          <span class="user-role-label">{{ userRole() }}</span>
+          <div class="user-name-value">{{ userName() }}</div>
           <div class="user-email-value">
             <mat-icon class="email-icon">mail</mat-icon>
-            {{ user.email }}
+            {{ userEmail() }}
           </div>
         </div>
       </div>
-      
-      <div class="account-status">
-        <span class="status-indicator active"></span>
-        <span>Cuenta Activa</span>
-      </div>
+    
     </section>
 
     <!-- Change Password Form -->
@@ -40,20 +36,20 @@
         <!-- Old Password -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Contraseña Actual</mat-label>
-          <input matInput [type]="hideOld ? 'password' : 'text'" [(ngModel)]="passwords.oldPassword" name="oldPassword" required>
-          <button mat-icon-button matSuffix (click)="hideOld = !hideOld" type="button" 
-                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
-            <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input matInput [type]="hideOld() ? 'password' : 'text'" [(ngModel)]="passwords.oldPassword" name="oldPassword" required>
+          <button mat-icon-button matSuffix (click)="hideOld.set(!hideOld())" type="button"
+                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld()">
+            <mat-icon>{{hideOld() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
 
         <!-- New Password -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Nueva Contraseña</mat-label>
-          <input matInput [type]="hideNew ? 'password' : 'text'" [(ngModel)]="passwords.newPassword" name="newPassword" required>
-          <button mat-icon-button matSuffix (click)="hideNew = !hideNew" type="button" 
-                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew">
-            <mat-icon>{{hideNew ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input matInput [type]="hideNew() ? 'password' : 'text'" [(ngModel)]="passwords.newPassword" name="newPassword" required>
+          <button mat-icon-button matSuffix (click)="hideNew.set(!hideNew())" type="button"
+                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew()">
+            <mat-icon>{{hideNew() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-hint>La contraseña debe tener al menos 8 caracteres.</mat-hint>
         </mat-form-field>
@@ -61,10 +57,10 @@
         <!-- Confirm Password -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Confirmar Nueva Contraseña</mat-label>
-          <input matInput [type]="hideConfirm ? 'password' : 'text'" [(ngModel)]="passwords.confirmPassword" name="confirmPassword" required>
-          <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" type="button" 
-                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm">
-            <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input matInput [type]="hideConfirm() ? 'password' : 'text'" [(ngModel)]="passwords.confirmPassword" name="confirmPassword" required>
+          <button mat-icon-button matSuffix (click)="hideConfirm.set(!hideConfirm())" type="button"
+                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm()">
+            <mat-icon>{{hideConfirm() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
 

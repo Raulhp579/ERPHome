@@ -35,24 +35,56 @@
   gap: 16px;
 }
 
-.user-btn {
-  background: transparent !important;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: 1px solid var(--border-subtle);
+.user-profile-btn {
+  padding: 0 !important;
+  min-width: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background-color: var(--border-subtle) !important;
+  border: 1px solid var(--border-subtle) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-.user-btn:hover {
-  background: rgba(255, 255, 255, 0.05) !important;
+.user-profile-btn:hover {
+  background-color: var(--primary-accent) !important;
+  border-color: var(--primary-accent) !important;
+  transition: all 0.3s ease;
 }
 
-.logo {
-  font-weight: 600;
-  color: var(--primary-accent);
-  font-size: 14px;
+.initial-circle {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.user-profile-btn:hover .initial-circle {
+  color: var(--bg-dark);
+}
+
+/* Mat Menu styling to match Modern Slate */
+::ng-deep .modern-menu {
+  background-color: var(--bg-dark) !important;
+  border: 1px solid var(--border-subtle) !important;
+  margin-top: 8px !important;
+}
+
+::ng-deep .mat-mdc-menu-item {
+  color: var(--text-muted) !important;
+}
+
+::ng-deep .mat-mdc-menu-item .mat-icon {
+  color: var(--text-muted) !important;
+}
+
+::ng-deep .mat-mdc-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: var(--primary-accent) !important;
+}
+
+::ng-deep .mat-mdc-menu-item:hover .mat-icon {
+  color: var(--primary-accent) !important;
 }

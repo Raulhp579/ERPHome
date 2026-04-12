@@ -5,14 +5,17 @@ import { GestionUsuariosRolesPermisos } from './moduloAutenticacion/gestion-usua
 import { AsignarUsuario } from './moduloAutenticacion/asignar-usuario/asignar-usuario';
 import { Roles } from './moduloAutenticacion/roles/roles';
 import { AsignarRol } from './moduloAutenticacion/asignar-rol/asignar-rol';
+import { MiPerfil } from './mi-perfil/mi-perfil';
+import { authGuard, guestGuard } from './moduloAutenticacion/guards/auth.guard';
 
 
 export const routes: Routes = [
-    { path: 'home', component: Home },
-    { path: 'login', component: Login },
+    { path: 'home', component: Home, canActivate: [authGuard] },
+    { path: 'login', component: Login, canActivate: [guestGuard] },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'usuarios', component: GestionUsuariosRolesPermisos },
-    { path: 'usuarios/asignar/:id', component: AsignarUsuario },
-    { path: 'roles', component: Roles },
-    { path: 'roles/asignar/:id', component: AsignarRol }
+    { path: 'usuarios', component: GestionUsuariosRolesPermisos, canActivate: [authGuard] },
+    { path: 'usuarios/asignar/:id', component: AsignarUsuario, canActivate: [authGuard] },
+    { path: 'roles', component: Roles, canActivate: [authGuard] },
+    { path: 'roles/asignar/:id', component: AsignarRol, canActivate: [authGuard] },
+    { path: 'perfil/:id', component: MiPerfil, canActivate: [authGuard] }
 ];

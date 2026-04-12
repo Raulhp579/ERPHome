@@ -40,11 +40,11 @@ export class UsuarioService {
   }
 
   me():Observable<any>{
-    return this.http.get<any>(`${this.url}/me`, { headers: this.getHeaders() });
+    return this.http.get<any>(`api/me`, { headers: this.getHeaders() });
   }
 
   cambiarContrasenya(usuario: any):Observable<any>{
-    return this.http.put<any>(`${this.url}/cambiar-contrasena`, usuario, { headers: this.getHeaders() });
+    return this.http.put<any>(`api/cambiar-contrasena`, usuario, { headers: this.getHeaders() });
   }
 
 }

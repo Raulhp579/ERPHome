@@ -264,6 +264,79 @@ class PermisoController extends Controller
     }
 }
 
+public function getPermisosRol(string $id){
+    try{
+        if(Auth::user()->hasRole('admin')){
+            $rol = Role::where('id', $id)->first();
+            $permisos = $rol->permissions;
+            return response()->json([
+                'message' => 'Permisos obtenidos correctamente',
+                'data' => $permisos
+            ], 200);
+        }else{
+            return response()->json([
+                'message' => 'No tienes permiso para obtener los permisos',
+                'data' => null
+            ], 403);
+        }
+    }catch(Exception $e){
+        return response()->json([
+            'message' => 'Error al obtener los permisos',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+public function asignarPermisoRol(Request $request, string $id){
+    try{
+        if(Auth::user()->hasRole('admin')){
+            $permiso = Permission::find($request->id);
+            $rol = Role::where('id', $id)->first();
+            $rol->givePermissionTo($permiso);
+            app()[PermissionRegistrar::class]->forgetCachedPermissions();
+            return response()->json([
+                'message' => 'Permiso asignado correctamente',
+                'data' => $permiso
+            ], 200);
+        }else{
+            return response()->json([
+                'message' => 'No tienes permiso para asignar permisos',
+                'data' => null
+            ], 403);
+        }
+    }catch(Exception $e){
+        return response()->json([
+            'message' => 'Error al asignar el permiso',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
+public function quitarPermisoRol(Request $request, string $id){
+    try{
+        if(Auth::user()->hasRole('admin')){
+            $permiso = Permission::find($request->id);
+            $rol = Role::where('id', $id)->first();
+            $rol->revokePermissionTo($permiso);
+            app()[PermissionRegistrar::class]->forgetCachedPermissions();
+            return response()->json([
+                'message' => 'Permiso quitado correctamente',
+                'data' => $permiso
+            ], 200);
+        }else{
+            return response()->json([
+                'message' => 'No tienes permiso para quitar permisos',
+                'data' => null
+            ], 403);
+        }
+    }catch(Exception $e){
+        return response()->json([
+            'message' => 'Error al quitar el permiso',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
 }
 
 

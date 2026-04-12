@@ -26,6 +26,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('permiso/quitar/{idUser}', [PermisoController::class, 'quitarPermisoUsuario']);
     Route::get('rol/usuario/{id}', [RolController::class, 'obtenerRolUsuario']);
     Route::put('rol/usuario/{id}', [RolController::class, 'updateRolUsuario']);
+    Route::get('permiso/rol/{id}', [PermisoController::class, 'getPermisosRol']);
+    Route::post('permiso/asignar-rol/{idRol}', [PermisoController::class, 'asignarPermisoRol']);
+    Route::post('permiso/quitar-rol/{idRol}', [PermisoController::class, 'quitarPermisoRol']);
+    Route::get('me', [AuthController::class, 'me']);
+    Route::put('cambiar-contrasena', [AuthController::class, 'cambiarContrasenya']);
 });
 
 

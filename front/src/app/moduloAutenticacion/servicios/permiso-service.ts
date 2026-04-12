@@ -52,4 +52,16 @@ export class PermisoService {
   quitarPermisoUsuario(id:number, idUser:number):Observable<any>{
     return this.http.post<any>(`${this.url}/quitar/${idUser}`, { id }, { headers: this.getHeaders() });
   }
+
+  getPermisosRol(id:number):Observable<any>{
+    return this.http.get<any>(`${this.url}/rol/${id}`, { headers: this.getHeaders() });
+  }
+
+  asignarPermisoRol(id:number, idRol:number):Observable<any>{
+    return this.http.post<any>(`${this.url}/asignar-rol/${idRol}`, { id }, { headers: this.getHeaders() });
+  }
+
+  quitarPermisoRol(id:number, idRol:number):Observable<any>{
+    return this.http.post<any>(`${this.url}/quitar-rol/${idRol}`, { id }, { headers: this.getHeaders() });
+  }
 }

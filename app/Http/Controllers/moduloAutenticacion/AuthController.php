@@ -4,7 +4,9 @@ namespace App\Http\Controllers\moduloAutenticacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -38,5 +40,38 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Logout exitoso',
         ]);
+    }
+
+    public function me(){
+        return response()->json([
+            'user' => Auth::user(),
+        ]);
+    }
+
+    public function cambiarContrasenya(Request $request){
+        try{
+            $request->validate([
+                'oldPassword'=>'required',
+                'newPassword' => 'required|min:8',
+            ]);
+            $user = User::find(Auth::user()->id);
+            if(!Hash::check($request->oldPassword, $user->password)){
+                return response()->json([
+                    'message' => 'Contraseña actual incorrecta',
+                ], 401);
+            }
+            $user->update([
+                'password' => Hash::make($request->newPassword),
+            ]);
+            return response()->json([
+                'message' => 'Contraseña cambiada correctamente',
+                'data' => $user
+            ], 200);
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'Error al cambiar la contraseña',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

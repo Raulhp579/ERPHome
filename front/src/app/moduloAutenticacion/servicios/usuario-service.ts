@@ -39,6 +39,13 @@ export class UsuarioService {
     return this.http.delete<any>(`${this.url}/${id}`, { headers: this.getHeaders() });
   }
 
+  me():Observable<any>{
+    return this.http.get<any>(`${this.url}/me`, { headers: this.getHeaders() });
+  }
+
+  cambiarContrasenya(usuario: any):Observable<any>{
+    return this.http.put<any>(`${this.url}/cambiar-contrasena`, usuario, { headers: this.getHeaders() });
+  }
 
 }
 

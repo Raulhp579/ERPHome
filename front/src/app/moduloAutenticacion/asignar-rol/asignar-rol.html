@@ -1,0 +1,72 @@
+<div class="container">
+  <!-- Header Section -->
+  <header class="header-section">
+    <div class="title-group">
+      <h1 class="main-title">Asignar Permisos al Rol</h1>
+      <span class="subtitle">Gestione el acceso granular para este rol del sistema</span>
+    </div>
+    <button mat-button class="btn-cancel" routerLink="/roles">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </button>
+  </header>
+
+  <!-- Role Info Section -->
+  <section class="selection-card">
+    @if (selectedRole) {
+      <div class="role-info-display">
+        <div class="sb-avatar role-avatar-large">{{ selectedRole.name?.charAt(0).toUpperCase() }}</div>
+        <div class="role-details">
+          <span class="role-name-label">Configurando Rol</span>
+          <div class="role-name-value">{{ selectedRole.name }}</div>
+        </div>
+      </div>
+    } @else {
+      <!-- Placeholder while loading or if not found -->
+      <div class="role-info-display" style="opacity: 0.7;">
+        <div class="sb-avatar role-avatar-large">?</div>
+        <div class="role-details">
+          <span class="role-name-label">Rol no seleccionado</span>
+          <div class="role-name-value">Seleccione un rol para continuar</div>
+        </div>
+      </div>
+    }
+  </section>
+
+  <!-- Modules & Permissions Grid -->
+  <section class="modules-section">
+    <span class="section-label">Permisos Disponibles por Módulo</span>
+
+    <div class="modules-grid">
+      @for (module of modules; track $index) {
+        <div class="module-card">
+          <div class="module-header">
+            <div class="module-icon-box">
+              <mat-icon>{{ module.icon || 'extension' }}</mat-icon>
+            </div>
+            <span class="module-name">{{ module.name }}</span>
+          </div>
+
+          <div class="permissions-list">
+            @for (perm of module.permissions; track $index) {
+                <div class="permission-item">
+                  <span class="perm-label">
+                    <mat-icon>verified</mat-icon>
+                    {{ perm.name }}
+                  </span>
+                  
+                  <!-- Logic for toggling permissions (mimicking asignar-usuario pattern) -->
+                  @if (permisosDelRol.includes(perm.id)) {
+                    <mat-slide-toggle (click)="quitarPermiso(perm.id)"  color="primary" [checked]="true"></mat-slide-toggle>
+                  } @else {
+                    <mat-slide-toggle (click)="agregarPermiso(perm.id)" color="primary" [checked]="false"></mat-slide-toggle>
+                  }
+                </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+</div>

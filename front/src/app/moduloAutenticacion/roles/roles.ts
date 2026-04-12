@@ -4,6 +4,7 @@ import { RolService } from '../servicios/rol-service';
 import { firstValueFrom } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -16,6 +17,8 @@ declare var $: any;
 export class Roles implements OnInit {
 
   private rolService = inject(RolService);
+
+  constructor(private router: Router){}
 
   showModalCrear = signal(false);
   showModalEditar = signal(false);
@@ -110,7 +113,7 @@ export class Roles implements OnInit {
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         $('td', row).off('click');
         $('td', row).on('click', () => {
-          console.log(data);//falta vista asignar-rol
+          this.router.navigate(["/roles/asignar", (data as any).id])
         });
         return row;
       },

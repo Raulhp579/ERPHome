@@ -4,6 +4,8 @@ import { Login } from './moduloAutenticacion/login/login';
 import { GestionUsuariosRolesPermisos } from './moduloAutenticacion/gestion-usuarios-roles-permisos/gestion-usuarios-roles-permisos';
 import { AsignarUsuario } from './moduloAutenticacion/asignar-usuario/asignar-usuario';
 import { Roles } from './moduloAutenticacion/roles/roles';
+import { AsignarRol } from './moduloAutenticacion/asignar-rol/asignar-rol';
+
 
 export const routes: Routes = [
     { path: 'home', component: Home },
@@ -11,5 +13,6 @@ export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'usuarios', component: GestionUsuariosRolesPermisos },
     { path: 'usuarios/asignar/:id', component: AsignarUsuario },
-    { path: 'roles', component: Roles }
+    { path: 'roles', component: Roles },
+    { path: 'roles/asignar/:id', component: AsignarRol }
 ];

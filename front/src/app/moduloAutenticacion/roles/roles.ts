@@ -1,5 +1,10 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 import { RolService } from '../servicios/rol-service';
 import { firstValueFrom } from 'rxjs';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +15,15 @@ declare var $: any;
 
 @Component({
   selector: 'app-roles',
-  imports: [MatIconModule, FormsModule],
+  imports: [
+    MatIconModule, 
+    FormsModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    MatInputModule, 
+    MatFormFieldModule, 
+    CommonModule
+  ],
   templateUrl: './roles.html',
   styleUrl: './roles.css',
 })
@@ -27,6 +40,13 @@ export class Roles implements OnInit {
 
   ngOnInit(): void {
     this.cargarTabla();
+  }
+
+  onSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    if ($.fn.DataTable.isDataTable('#rolesTable')) {
+      $('#rolesTable').DataTable().search(value).draw();
+    }
   }
 
   private lang = {
@@ -133,14 +153,7 @@ export class Roles implements OnInit {
             this.borrarRol(id)
           });
 
-          $('.dt-paging-button, .paginate_button').each((index: number, element: any) => {
-            const $btn = $(element);
-            if ($btn.hasClass('current')) {
-              $btn.attr('style', 'background: #00f2ad !important; color: #0f172a !important; border: none !important; font-weight: bold !important;');
-            } else if (!$btn.hasClass('disabled')) {
-              $btn.attr('style', 'background: rgba(255, 255, 255, 0.1) !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.2) !important;');
-            }
-          });
+          // Removing hardcoded inline styles from JS so CSS takes effect
         }, 50);
       }
     });

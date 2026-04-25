@@ -37,14 +37,18 @@ class UserController extends Controller
                         return $usuario->created_at->format('d/m/Y');
                     })
                     ->addColumn('actions', function($usuario){
-                        return '<div class="action-buttons">
+                        return '<div class="d-flex gap-2">
                             <button class="btn-icon edit" title="Editar" data-id="'.$usuario->id.'">
-                                <i class="material-icons">edit_note</i>
+                                <i class="material-icons">edit</i>
                             </button>
                             <button class="btn-icon delete" title="Eliminar" data-id="'.$usuario->id.'">
-                                <i class="material-icons">delete_outline</i>
+                                <i class="material-icons">delete</i>
                             </button>
                         </div>';
+                    })
+                    ->filterColumn('rol', function($query, $keyword) {
+                        // Al dejar esto vacío o no procesar el $keyword, 
+                        // la búsqueda global ignorará esta columna.
                     })
                     ->rawColumns(['actions'])
                     ->make(true);

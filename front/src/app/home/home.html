@@ -1,1 +1,266 @@
-<p>home works!</p>
+<div class="dashboard-container">
+  <!-- 2. Banner de Bienvenida -->
+  <mat-card class="banner-card">
+    <div class="banner-left">
+      <h1>Buenas noches, Admin 👋</h1>
+      <p>Bienvenido al panel de control de tu sistema.</p>
+    </div>
+    <div class="banner-right">
+      <div class="banner-stat">
+        <span class="stat-value">101</span>
+        <span class="stat-label">Usuarios</span>
+      </div>
+      <div class="banner-stat">
+        <span class="stat-value">2</span>
+        <span class="stat-label">Roles</span>
+      </div>
+      <div class="banner-stat">
+        <span class="stat-value">10</span>
+        <span class="stat-label">Módulos</span>
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- 3. Fila de KPIs -->
+  <div class="kpi-grid">
+    <!-- KPI 1 -->
+    <mat-card class="kpi-card">
+      <div class="kpi-header">
+        <div class="icon-square">
+          <mat-icon>security</mat-icon>
+        </div>
+        <div class="kpi-info">
+          <h2 class="kpi-value">101</h2>
+          <p class="kpi-label">Guardias totales</p>
+        </div>
+      </div>
+      <div class="kpi-footer">
+        <span class="trend">↑ + 3 este mes</span>
+      </div>
+    </mat-card>
+
+    <!-- KPI 2 -->
+    <mat-card class="kpi-card">
+      <div class="kpi-header">
+        <div class="icon-square">
+          <mat-icon>badge</mat-icon>
+        </div>
+        <div class="kpi-info">
+          <h2 class="kpi-value">45</h2>
+          <p class="kpi-label">Trabajadores</p>
+        </div>
+      </div>
+      <div class="kpi-footer">
+        <span class="trend">↑ + 1 este mes</span>
+      </div>
+    </mat-card>
+
+    <!-- KPI 3 -->
+    <mat-card class="kpi-card">
+      <div class="kpi-header">
+        <div class="icon-square">
+          <mat-icon>pending_actions</mat-icon>
+        </div>
+        <div class="kpi-info">
+          <h2 class="kpi-value">12</h2>
+          <p class="kpi-label">Fichajes pendientes</p>
+        </div>
+      </div>
+      <div class="kpi-footer">
+        <span class="trend negative">↓ - 5 este mes</span>
+      </div>
+    </mat-card>
+
+    <!-- KPI 4 -->
+    <mat-card class="kpi-card">
+      <div class="kpi-header">
+        <div class="icon-square">
+          <mat-icon>error_outline</mat-icon>
+        </div>
+        <div class="kpi-info">
+          <h2 class="kpi-value">3</h2>
+          <p class="kpi-label">Alertas activas</p>
+        </div>
+      </div>
+      <div class="kpi-footer">
+        <span class="trend">↑ + 2 esta semana</span>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- 4. Sección Módulos del Sistema -->
+  <div class="section-container">
+    <div class="section-header">
+      <h3>MÓDULOS DEL SISTEMA</h3>
+      <a href="#" class="link-teal">Ver todos &rarr;</a>
+    </div>
+
+    <div class="modules-grid">
+      <!-- Card 1 -->
+      <mat-card class="module-card">
+        <div class="icon-square small">
+          <mat-icon class="module-icon">settings</mat-icon>
+        </div>
+        <h4 class="module-title">Configuración</h4>
+        <p class="module-desc">Ajustes globales</p>
+        <span class="module-badge">Módulo</span>
+      </mat-card>
+      <!-- Card 2 -->
+      <mat-card class="module-card">
+        <div class="icon-square small">
+          <mat-icon class="module-icon">people</mat-icon>
+        </div>
+        <h4 class="module-title">Usuarios</h4>
+        <p class="module-desc">Gestión de accesos</p>
+        <span class="module-badge">101 Registros</span>
+      </mat-card>
+      <!-- Card 3 -->
+      <mat-card class="module-card">
+        <div class="icon-square small">
+          <mat-icon class="module-icon">shield</mat-icon>
+        </div>
+        <h4 class="module-title">Roles</h4>
+        <p class="module-desc">Permisos del sistema</p>
+        <span class="module-badge">2 Registros</span>
+      </mat-card>
+      <!-- Card 4 -->
+      <mat-card class="module-card">
+        <div class="icon-square small">
+          <mat-icon class="module-icon">calendar_month</mat-icon>
+        </div>
+        <h4 class="module-title">Guardias</h4>
+        <p class="module-desc">Turnos médicos</p>
+        <span class="module-badge">Módulo</span>
+      </mat-card>
+      <!-- Card 5 -->
+      <mat-card class="module-card">
+        <div class="icon-square small">
+          <mat-icon class="module-icon">assignment_ind</mat-icon>
+        </div>
+        <h4 class="module-title">Fichajes</h4>
+        <p class="module-desc">Registro horario</p>
+        <span class="module-badge">Activo</span>
+      </mat-card>
+      <!-- Card 6 -->
+      <mat-card class="module-card">
+        <div class="icon-square small">
+          <mat-icon class="module-icon">analytics</mat-icon>
+        </div>
+        <h4 class="module-title">Reportes</h4>
+        <p class="module-desc">Estadísticas</p>
+        <span class="module-badge">Módulo</span>
+      </mat-card>
+      <!-- Card 7 -->
+      <mat-card class="module-card">
+        <div class="icon-square small">
+          <mat-icon class="module-icon">domain</mat-icon>
+        </div>
+        <h4 class="module-title">Departamentos</h4>
+        <p class="module-desc">Estructura interna</p>
+        <span class="module-badge">8 Registros</span>
+      </mat-card>
+      <!-- Card 8 -->
+      <mat-card class="module-card">
+        <div class="icon-square small">
+          <mat-icon class="module-icon">history</mat-icon>
+        </div>
+        <h4 class="module-title">Auditoría</h4>
+        <p class="module-desc">Logs del sistema</p>
+        <span class="module-badge">Módulo</span>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- 5. Sección Inferior (Grid 1:1) -->
+  <div class="bottom-grid">
+    <!-- Columna Izquierda: Actividad Reciente -->
+    <div class="bottom-column">
+      <div class="section-header">
+        <h3>ACTIVIDAD RECIENTE</h3>
+        <a href="#" class="link-teal">Ver todo &rarr;</a>
+      </div>
+      <mat-card class="activity-card">
+        <div class="activity-list">
+          <!-- Item 1 -->
+          <div class="activity-item">
+            <div class="activity-dot dot-orange"></div>
+            <div class="activity-content">
+              <p class="activity-text">
+                <strong>Santo Tomás</strong> editó la guardia de Urgencias.
+              </p>
+              <span class="activity-time">Hace 2 min</span>
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div class="activity-item">
+            <div class="activity-dot dot-teal"></div>
+            <div class="activity-content">
+              <p class="activity-text"><strong>María Gómez</strong> registró su entrada.</p>
+              <span class="activity-time">Hace 15 min</span>
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div class="activity-item">
+            <div class="activity-dot dot-red"></div>
+            <div class="activity-content">
+              <p class="activity-text"><strong>Sistema</strong> generó una alerta de cobertura.</p>
+              <span class="activity-time">Hace 1 hora</span>
+            </div>
+          </div>
+          <!-- Item 4 -->
+          <div class="activity-item">
+            <div class="activity-dot dot-blue"></div>
+            <div class="activity-content">
+              <p class="activity-text"><strong>Admin</strong> creó un nuevo usuario.</p>
+              <span class="activity-time">Hace 3 horas</span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Columna Derecha: Acciones Rápidas -->
+    <div class="bottom-column">
+      <div class="section-header">
+        <h3>ACCIONES RÁPIDAS</h3>
+      </div>
+      <mat-card class="actions-card">
+        <div class="actions-list">
+          <!-- Action 1 -->
+          <div class="action-item">
+            <div class="action-icon-wrap">
+              <mat-icon>person_add</mat-icon>
+            </div>
+            <div class="action-content">
+              <h4>Crear Usuario</h4>
+              <p>Dar de alta un nuevo trabajador</p>
+            </div>
+            <mat-icon class="action-chevron">chevron_right</mat-icon>
+          </div>
+          <!-- Action 2 -->
+          <div class="action-item">
+            <div class="action-icon-wrap">
+              <mat-icon>event_note</mat-icon>
+            </div>
+            <div class="action-content">
+              <h4>Asignar Guardia</h4>
+              <p>Programar nuevo turno médico</p>
+            </div>
+            <mat-icon class="action-chevron">chevron_right</mat-icon>
+          </div>
+          <!-- Action 3 -->
+          <div class="action-item">
+            <div class="action-icon-wrap">
+              <mat-icon>assessment</mat-icon>
+            </div>
+            <div class="action-content">
+              <h4>Generar Reporte</h4>
+              <p>Extraer datos del mes actual</p>
+            </div>
+            <mat-icon class="action-chevron">chevron_right</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

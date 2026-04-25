@@ -1,5 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -12,7 +16,15 @@ declare var $: any;
 @Component({
   selector: 'app-gestion-usuarios-roles-permisos',
   standalone: true,
-  imports: [MatIconModule, CommonModule, FormsModule],
+  imports: [
+    MatIconModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    MatInputModule, 
+    MatFormFieldModule, 
+    CommonModule, 
+    FormsModule
+  ],
   templateUrl: './gestion-usuarios-roles-permisos.html',
   styleUrl: './gestion-usuarios-roles-permisos.css',
 })
@@ -34,8 +46,8 @@ export class GestionUsuariosRolesPermisos implements OnInit {
       text: 'Esta acción no se puede deshacer',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#334155',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar',
       customClass: {
@@ -59,6 +71,13 @@ export class GestionUsuariosRolesPermisos implements OnInit {
         });
       }
     });
+  }
+
+  onSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    if ($.fn.DataTable.isDataTable('#usuariosTable')) {
+      $('#usuariosTable').DataTable().search(value).draw();
+    }
   }
 
   abrirModalCrear() {
@@ -206,7 +225,7 @@ export class GestionUsuariosRolesPermisos implements OnInit {
 
           $(tableContainer)
             .find('label, span, div, a, .dt-info, .dataTables_info')
-            .css('color', '#ffffff');
+            .css('color', '#94a3b8');
 
           const buttons = '.dt-paging-button, .paginate_button';
           $(buttons).each((index: number, element: any) => {
@@ -214,25 +233,21 @@ export class GestionUsuariosRolesPermisos implements OnInit {
             if ($btn.hasClass('current')) {
               $btn.attr(
                 'style',
-                'background: #00f2ad !important; color: #0f172a !important; border: none !important; font-weight: bold !important;',
+                'background: #6366F1 !important; color: #ffffff !important; border: none !important; font-weight: bold !important; border-radius: 8px !important;',
               );
             } else if (!$btn.hasClass('disabled')) {
               $btn.attr(
                 'style',
-                'background: rgba(255, 255, 255, 0.1) !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.2) !important;',
+                'background: transparent !important; color: #94a3b8 !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 8px !important;',
               );
             } else {
               $btn.attr(
                 'style',
-                'color: rgba(255,255,255,0.3) !important; background: transparent !important;',
+                'color: rgba(255,255,255,0.2) !important; background: transparent !important; border: transparent !important;',
               );
             }
           });
 
-          $('.btn-icon.edit').attr(
-            'style',
-            'background-color: #00f2ad !important; color: #0f172a !important;',
-          );
           $('.btn-icon.edit')
             .off('click')
             .on('click', (e: any) => {
@@ -241,10 +256,6 @@ export class GestionUsuariosRolesPermisos implements OnInit {
               this.abrirModalEditar(id);
             });
 
-          $('.btn-icon.delete').attr(
-            'style',
-            'background-color: #ef4444 !important; color: #ffffff !important;',
-          );
           $('.btn-icon.delete')
             .off('click')
             .on('click', (e: any) => {

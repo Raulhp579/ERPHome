@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../moduloAutenticacion/servicios/usuario-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -25,6 +26,7 @@ import { UsuarioService } from '../moduloAutenticacion/servicios/usuario-service
 export class MiPerfil implements OnInit {
 
   private usuarioService = inject(UsuarioService);
+  private router = inject(Router);
 
   userName = signal<string>('');
   userEmail = signal<string>('');
@@ -57,7 +59,15 @@ export class MiPerfil implements OnInit {
     });
   }
 
-  cambiarPassword() {
-    console.log('Cambio de contraseña solicitado', this.passwords);
+  mensajeError = signal<string>('');
+
+  cambiarContrasenya() {
+    this.mensajeError.set('');
+    this.usuarioService.cambiarContrasenya(this.passwords).subscribe({
+      next: () => this.router.navigate(['/']),
+      error: (err) => {
+        this.mensajeError.set(err?.error?.error ?? err?.error?.message ?? err?.message ?? 'Error al cambiar la contraseña');
+      }
+    });
   }
-}
+} 

@@ -1,0 +1,231 @@
+:host {
+  /* Fondos Neutros Premium */
+  --bg-card: #1E293B; /* Un gris azulado elegante (Slate 800) que da contraste sin usar negro */
+
+  /* Mantenemos el acento y los textos */
+  --primary-accent: #6366f1;
+  --primary-light: rgba(99, 102, 241, 0.15);
+  --text-main: #f9fafb;
+  --text-muted: #a1a1aa; /* Gris neutro para texto secundario */
+
+  /* Bordes ligeramente más definidos para que las tarjetas se recorten bien contra el fondo negro */
+  --border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-wrapper {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: var(--bg-main);
+  min-height: 100vh;
+}
+
+/* Overrides globales para mat-card */
+mat-card {
+  background-color: var(--bg-card) !important;
+  color: var(--text-main) !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* --- TOP HEADER --- */
+mat-card.top-header {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 24px !important;
+}
+.header-welcome h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+.header-welcome p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+}
+.top-stats {
+  display: flex;
+  gap: 32px;
+}
+.stat-block {
+  text-align: center;
+}
+.stat-block .number {
+  color: var(--primary-accent);
+  font-size: 28px;
+  font-weight: bold;
+  display: block;
+}
+.stat-block .label {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --- GRIDS --- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 16px;
+} /* Ajusta columnas según necesidad */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* --- TARJETAS KPI --- */
+mat-card.kpi-card {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 20px !important;
+}
+.kpi-card .icon-wrapper {
+  background-color: var(--primary-light);
+  padding: 12px;
+  border-radius: 10px;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kpi-card .icon-wrapper mat-icon {
+  color: var(--primary-accent);
+}
+.kpi-card .content-kpi {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.kpi-card .content-kpi .title {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.kpi-card .content-kpi .value {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+.kpi-card .content-kpi .trend.indigo {
+  color: var(--primary-accent);
+  font-size: 11px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* --- TARJETAS MÓDULOS --- */
+mat-card.module-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important; /* Fuerza izquierda */
+  text-align: left !important;
+  padding: 20px !important;
+}
+.module-card .icon-wrapper {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.module-card h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.module-card p {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.module-card .badge {
+  background-color: var(--primary-light);
+  color: var(--primary-accent);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-top: 16px;
+  display: inline-block;
+}
+
+/* --- TITULOS DE SECCIÓN --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 12px;
+}
+.section-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+.link-indigo {
+  color: var(--primary-accent);
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* --- LISTAS INFERIORES --- */
+mat-card.list-card {
+  padding: 20px !important;
+  min-height: 250px;
+}
+
+/* --- ACTIVIDAD RECIENTE --- */
+.activity-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+.activity-item:last-child {
+  margin-bottom: 0;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.bg-orange {
+  background-color: #f59e0b;
+}
+.bg-red {
+  background-color: #ef4444;
+}
+.bg-blue {
+  background-color: #3b82f6;
+}
+.activity-text p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.activity-text .text-white {
+  color: var(--text-main);
+  font-weight: bold;
+}
+.activity-text .time {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  display: block;
+}

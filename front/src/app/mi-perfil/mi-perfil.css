@@ -279,3 +279,10 @@
   box-shadow: 0 15px 20px -5px rgba(0, 242, 173, 0.4) !important;
   filter: brightness(1.1);
 }
+
+
+.mensajeError{
+  color: rgb(255, 86, 86);
+  font-weight: 700;
+  font-size: 14px;
+}

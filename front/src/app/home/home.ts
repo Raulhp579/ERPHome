@@ -7,6 +7,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-home',
   imports: [MatCardModule, MatIconModule, CommonModule],
   templateUrl: './home.html',
-  styleUrl: './home.scss',
+  styleUrl: './home.css',
 })
 export class Home {}

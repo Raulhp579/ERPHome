@@ -1,11 +1,11 @@
-/* Light Slate Theme Colors */
+/* Light Slate Theme Colors (ahora Neutral Dark) */
 :root {
-  --primary-accent: #059669; /* Emerald verde oscuro para legibilidad en claro */
-  --bg-dark: #f8fafc; /* Fondo clarito (casi blanco) principal */
-  --bg-sidebar: #ffffff; /* Sidebar blanco puro */
-  --text-main: #0f172a; /* Texto principal oscuro */
-  --text-muted: #64748b; /* Texto secundario gris */
-  --border-subtle: #e2e8f0; /* Borde gris suavecito */
+  --primary-accent: #6366f1; /* Índigo elegante */
+  --bg-dark: #09090b; /* Fondo oscuro principal */
+  --bg-sidebar: #121214; /* Sidebar gris muy oscuro */
+  --text-main: #f9fafb; /* Texto principal claro */
+  --text-muted: #a1a1aa; /* Texto secundario gris */
+  --border-subtle: rgba(255, 255, 255, 0.08); /* Borde suave */
 }
 
 .example-spacer {

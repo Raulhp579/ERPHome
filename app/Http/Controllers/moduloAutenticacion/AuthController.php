@@ -57,7 +57,19 @@ class AuthController extends Controller
             $request->validate([
                 'oldPassword'=>'required',
                 'newPassword' => 'required|min:8',
+            ], [
+                'oldPassword.required' => 'La contraseña actual es requerida',
+                'newPassword.required' => 'La contraseña nueva es requerida',
+                'newPassword.min' => 'La contraseña nueva debe tener al menos 8 caracteres',
             ]);
+
+        
+            if($request->oldPassword == $request->newPassword){
+                return response()->json([
+                    'message' => 'La contraseña nueva no puede ser igual a la contraseña actual',
+                ], 401);
+            }
+
             $user = User::find(Auth::user()->id);
             if(!Hash::check($request->oldPassword, $user->password)){
                 return response()->json([

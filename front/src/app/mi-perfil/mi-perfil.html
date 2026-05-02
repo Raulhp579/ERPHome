@@ -32,7 +32,7 @@
       </div>
       <p class="card-description">Actualice su contraseña periódicamente para mantener su cuenta segura.</p>
 
-      <form class="password-form" (ngSubmit)="cambiarPassword()">
+      <form class="password-form" (ngSubmit)="cambiarContrasenya()">
         <!-- Old Password -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Contraseña Actual</mat-label>
@@ -55,7 +55,7 @@
         </mat-form-field>
 
         <!-- Confirm Password -->
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline" class="full-width mt-3">
           <mat-label>Confirmar Nueva Contraseña</mat-label>
           <input matInput [type]="hideConfirm() ? 'password' : 'text'" [(ngModel)]="passwords.confirmPassword" name="confirmPassword" required>
           <button mat-icon-button matSuffix (click)="hideConfirm.set(!hideConfirm())" type="button"
@@ -63,6 +63,12 @@
             <mat-icon>{{hideConfirm() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
+
+        @if (mensajeError()) {
+          <div id="mensajeError">
+            <p class="mensajeError">{{ mensajeError() }}</p> 
+          </div>
+        }
 
         <div class="actions-bar">
           <button mat-raised-button class="btn-save" type="submit">

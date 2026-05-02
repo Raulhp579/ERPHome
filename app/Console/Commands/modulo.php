@@ -16,14 +16,22 @@ class modulo extends Command
     public function handle()
     {
         $nombre = $this->argument('nombre');
-        $this->info('Creando modulo: ' . $nombre);
+        $nombreCarpeta = 'modulo' . $nombre;
+
+        $this->info('Creando modulo: '.$nombre.' en la carpeta '.$nombreCarpeta);
+
+        $frontPath = base_path('front/src/app/' . $nombreCarpeta);
+        if (! is_dir($frontPath)) {
+            mkdir($frontPath, 0777, true);
+            $this->info('Carpeta de frontend creada en: front/src/app/' . $nombreCarpeta);
+        }
 
         $this->call('make:controller', [
-            'name' => $nombre . 'Controller',
+            'name' => $nombreCarpeta . '\\' . $nombre . 'Controller',
         ]);
 
         $this->call('make:model', [
-            'name' => $nombre,
+            'name' => $nombreCarpeta . '\\' . $nombre,
         ]);
 
         $this->generarSQL($nombre);
@@ -35,12 +43,12 @@ class modulo extends Command
         $nombreLower = strtolower($nombre);
         $sqlPath = database_path('updateSQL.sql');
 
-        if (!file_exists($sqlPath)) {
+        if (! file_exists($sqlPath)) {
             file_put_contents($sqlPath,
-                "-- ============================================================\n" .
-                "--  ERPHome - Script de inserción de módulos y permisos\n" .
-                "--  Tabla: modulos + permissions (Spatie)\n" .
-                "--  Patrón: 4 permisos por módulo (ver, crear, actualizar, eliminar)\n" .
+                "-- ============================================================\n".
+                "--  ERPHome - Script de inserción de módulos y permisos\n".
+                "--  Tabla: modulos + permissions (Spatie)\n".
+                "--  Patrón: 4 permisos por módulo (ver, crear, actualizar, eliminar)\n".
                 "-- ============================================================\n\n"
             );
         }

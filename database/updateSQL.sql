@@ -6,7 +6,7 @@
 
 
 INSERT INTO `modulos` (`nombre`, `icono`, `estado`, `created_at`, `updated_at`) VALUES
-('movimiento', 'extension', 1, NOW(), NOW());
+('movimiento', 'currency_exchange', 1, NOW(), NOW());
 
 SET @id_modulo = LAST_INSERT_ID();
 

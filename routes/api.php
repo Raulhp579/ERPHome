@@ -5,6 +5,7 @@ use App\Http\Controllers\moduloAutenticacion\PermisoController;
 use App\Http\Controllers\moduloAutenticacion\RolController;
 use App\Http\Controllers\moduloAutenticacion\UserController;
 use App\Http\Controllers\ModuloController;
+use App\Http\Controllers\modulomovimiento\MovimientoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ Route::get('/user', function (Request $request) {
 Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    //////////////////////AUTENTICACION//////////////////////////
     Route::apiResource('user', UserController::class);
     Route::apiResource('rol', RolController::class);
     Route::apiResource('permiso', PermisoController::class);
@@ -31,6 +34,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('permiso/quitar-rol/{idRol}', [PermisoController::class, 'quitarPermisoRol']);
     Route::get('me', [AuthController::class, 'me']);
     Route::put('cambiar-contrasena', [AuthController::class, 'cambiarContrasenya']);
+
+    /////////////////MOVIMIENTO/////////////////////
+    Route::apiResource('movimiento', MovimientoController::class);
+    Route::get('movimiento/ingresos', [MovimientoController::class, 'getTotalIngresos']);
+    Route::get('movimiento/gastos', [MovimientoController::class, 'getTotalGastos']);
+    Route::get('movimiento/balance', [MovimientoController::class, 'getTotalBalance']);
+    
+
 });
 
 

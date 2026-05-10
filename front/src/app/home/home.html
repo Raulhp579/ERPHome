@@ -5,129 +5,83 @@
       <h2>Buenas noches, Admin 👋</h2>
       <p>Bienvenido al panel de control de tu sistema.</p>
     </div>
-    <div class="top-stats">
-      <div class="stat-block"><span class="number">101</span><span class="label">USUARIOS</span></div>
-      <div class="stat-block"><span class="number">2</span><span class="label">ROLES</span></div>
-      <div class="stat-block"><span class="number">10</span><span class="label">MÓDULOS</span></div>
-    </div>
   </mat-card>
 
-  <div class="kpi-grid">
-    <mat-card class="kpi-card">
-      <div class="icon-wrapper"><mat-icon>shield</mat-icon></div>
-      <div class="content-kpi">
-        <span class="value">101</span>
-        <span class="title">Guardias totales</span>
-        <span class="trend indigo">↑ + 3 este mes</span>
+  <div class="main-layout-grid-v2">
+    <!-- Left Column: 65% -->
+    <div class="left-col-65">
+      <div class="section-header">
+        <span class="section-title">MÓDULOS PRINCIPALES</span>
       </div>
-    </mat-card>
-    <mat-card class="kpi-card">
-      <div class="icon-wrapper"><mat-icon>group</mat-icon></div>
-      <div class="content-kpi">
-        <span class="value">45</span>
-        <span class="title">Usuarios Activos</span>
-        <span class="trend indigo">↑ + 5 este mes</span>
+      <div class="modules-grid-6">
+        <mat-card class="module-card glass-panel floating-ui">
+          <div class="icon-wrapper turquoise-accent"><mat-icon>people</mat-icon></div>
+          <h3>Usuarios</h3>
+          <p>Gestión de personal</p>
+        </mat-card>
+        <mat-card class="module-card glass-panel floating-ui">
+          <div class="icon-wrapper purple-accent"><mat-icon>security</mat-icon></div>
+          <h3>Roles</h3>
+          <p>Permisos y accesos</p>
+        </mat-card>
+        <mat-card class="module-card glass-panel floating-ui">
+          <div class="icon-wrapper turquoise-accent"><mat-icon>fingerprint</mat-icon></div>
+          <h3>Fichajes</h3>
+          <p>Control de presencia</p>
+        </mat-card>
+        <mat-card class="module-card glass-panel floating-ui">
+          <div class="icon-wrapper purple-accent"><mat-icon>assignment</mat-icon></div>
+          <h3>Guardias</h3>
+          <p>Turnos y horarios</p>
+        </mat-card>
+        <mat-card class="module-card glass-panel floating-ui">
+          <div class="icon-wrapper turquoise-accent"><mat-icon>bar_chart</mat-icon></div>
+          <h3>Reportes</h3>
+          <p>Estadísticas del sistema</p>
+        </mat-card>
+        <mat-card class="module-card glass-panel floating-ui">
+          <div class="icon-wrapper purple-accent"><mat-icon>settings</mat-icon></div>
+          <h3>Configuración</h3>
+          <p>Ajustes globales</p>
+        </mat-card>
       </div>
-    </mat-card>
-    <mat-card class="kpi-card">
-      <div class="icon-wrapper"><mat-icon>access_time</mat-icon></div>
-      <div class="content-kpi">
-        <span class="value">12h</span>
-        <span class="title">Tiempo Promedio</span>
-        <span class="trend indigo">↑ + 1h este mes</span>
-      </div>
-    </mat-card>
-    <mat-card class="kpi-card">
-      <div class="icon-wrapper"><mat-icon>check_circle</mat-icon></div>
-      <div class="content-kpi">
-        <span class="value">98%</span>
-        <span class="title">Tasa de Completado</span>
-        <span class="trend indigo">↑ + 2% este mes</span>
-      </div>
-    </mat-card>
-  </div>
+    </div>
 
-  <div class="section-header">
-    <span class="section-title">MÓDULOS DEL SISTEMA</span>
-    <a class="link-indigo">Ver todos →</a>
-  </div>
-  <div class="modules-grid">
-    <mat-card class="module-card">
-      <div class="icon-wrapper"><mat-icon>settings</mat-icon></div>
-      <h3>Configuración</h3>
-      <p>Ajustes globales</p>
-      <span class="badge">Módulo</span>
-    </mat-card>
-    <mat-card class="module-card">
-      <div class="icon-wrapper"><mat-icon>people</mat-icon></div>
-      <h3>Usuarios</h3>
-      <p>Gestión de personal</p>
-      <span class="badge">Módulo</span>
-    </mat-card>
-    <mat-card class="module-card">
-      <div class="icon-wrapper"><mat-icon>security</mat-icon></div>
-      <h3>Roles</h3>
-      <p>Permisos y accesos</p>
-      <span class="badge">Módulo</span>
-    </mat-card>
-    <mat-card class="module-card">
-      <div class="icon-wrapper"><mat-icon>assignment</mat-icon></div>
-      <h3>Guardias</h3>
-      <p>Turnos y horarios</p>
-      <span class="badge">Módulo</span>
-    </mat-card>
-    <mat-card class="module-card">
-      <div class="icon-wrapper"><mat-icon>fingerprint</mat-icon></div>
-      <h3>Fichajes</h3>
-      <p>Control de presencia</p>
-      <span class="badge">Módulo</span>
-    </mat-card>
-    <mat-card class="module-card">
-      <div class="icon-wrapper"><mat-icon>bar_chart</mat-icon></div>
-      <h3>Reportes</h3>
-      <p>Estadísticas del sistema</p>
-      <span class="badge">Módulo</span>
-    </mat-card>
-    <mat-card class="module-card">
-      <div class="icon-wrapper"><mat-icon>notifications</mat-icon></div>
-      <h3>Avisos</h3>
-      <p>Notificaciones globales</p>
-      <span class="badge">Módulo</span>
-    </mat-card>
-    <mat-card class="module-card">
-      <div class="icon-wrapper"><mat-icon>folder</mat-icon></div>
-      <h3>Archivos</h3>
-      <p>Gestor documental</p>
-      <span class="badge">Módulo</span>
-    </mat-card>
-  </div>
-
-  <div class="bottom-grid">
-    <div class="bottom-column">
-      <div class="section-header"><span class="section-title">ACTIVIDAD RECIENTE</span><a class="link-indigo">Ver todo →</a></div>
-      <mat-card class="list-card">
-        <div class="activity-item">
-          <span class="dot bg-orange"></span>
-          <div class="activity-text">
-            <p><span class="text-white">Santo Tomás</span> editó la guardia de Urgencias.</p>
-            <span class="time">Hace 2 min</span>
-          </div>
-        </div>
-        <div class="activity-item">
-          <span class="dot bg-red"></span>
-          <div class="activity-text">
-            <p><span class="text-white">Sistema</span> generó una alerta de cobertura.</p>
-            <span class="time">Hace 1 hora</span>
-          </div>
-        </div>
-        <div class="activity-item">
-          <span class="dot bg-blue"></span>
-          <div class="activity-text">
-            <p><span class="text-white">Admin</span> creó un nuevo usuario.</p>
-            <span class="time">Hace 3 horas</span>
-          </div>
-        </div>
+    <!-- Right Column: 35% -->
+    <div class="right-col-35">
+      <div class="section-header">
+        <span class="section-title">AGENDA</span>
+      </div>
+      <mat-card class="calendar-card tall-card floating-ui glass-panel">
+        <full-calendar [options]="calendarOptions"></full-calendar>
       </mat-card>
+    </div>
+  </div>
+
+  <!-- Center Foreground Modal -->
+  <div class="modal-overlay" *ngIf="showReminderModal">
+    <div class="floating-modal glass-modal">
+      <div class="modal-header">
+        <h3>Nuevo Recordatorio</h3>
+        <button class="close-btn" (click)="showReminderModal = false"><mat-icon>close</mat-icon></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" placeholder="Ej. Reunión de equipo" class="sleek-input">
+        </div>
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date" class="sleek-input">
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea placeholder="Detalles del recordatorio..." class="sleek-input" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-btn purple-btn" (click)="showReminderModal = false">Guardar</button>
+      </div>
     </div>
   </div>
 

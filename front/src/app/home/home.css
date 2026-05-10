@@ -229,3 +229,322 @@ mat-card.list-card {
   margin-top: 4px;
   display: block;
 }
+
+/* --- MAIN LAYOUT GRID --- */
+.main-layout-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+.left-col {
+  display: flex;
+  flex-direction: column;
+}
+.right-col {
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 1024px) {
+  .main-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- CALENDAR CARD --- */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+mat-card.calendar-card {
+  padding: 32px !important;
+  flex-grow: 1;
+  min-height: 750px;
+  border-radius: 24px !important;
+  background: linear-gradient(145deg, #1e293b, #0f172a) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+/* FullCalendar Premium Overrides */
+:host ::ng-deep .fc {
+  color: var(--text-main);
+  font-family: inherit;
+}
+:host ::ng-deep .fc-theme-standard td, :host ::ng-deep .fc-theme-standard th {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+:host ::ng-deep .fc-scrollgrid {
+  border: none !important;
+}
+:host ::ng-deep .fc-toolbar-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+:host ::ng-deep .fc-button-primary {
+  background-color: rgba(99, 102, 241, 0.1) !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+  color: var(--primary-accent) !important;
+  text-transform: capitalize;
+  border-radius: 8px !important;
+  font-weight: 600;
+  padding: 8px 16px !important;
+  transition: all 0.2s ease;
+}
+:host ::ng-deep .fc-button-primary:hover {
+  background-color: var(--primary-accent) !important;
+  color: #fff !important;
+  border-color: var(--primary-accent) !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+:host ::ng-deep .fc-button-active {
+  background-color: var(--primary-accent) !important;
+  color: #fff !important;
+}
+:host ::ng-deep .fc-col-header-cell {
+  padding: 12px 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+:host ::ng-deep .fc-col-header-cell-cushion {
+  color: var(--text-muted);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+:host ::ng-deep .fc-daygrid-day-number {
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 8px !important;
+}
+:host ::ng-deep .fc-day-today {
+  background-color: rgba(99, 102, 241, 0.08) !important;
+}
+:host ::ng-deep .fc-daygrid-day:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+}
+:host ::ng-deep .fc-event {
+  background: linear-gradient(135deg, var(--primary-accent), #8b5cf6);
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  margin: 2px 4px;
+}
+:host ::ng-deep .fc-event:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* --- FLOATING UI ENHANCEMENTS --- */
+.floating-ui {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.floating-ui:hover {
+  transform: translateY(-4px) translateZ(10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(99, 102, 241, 0.2) !important;
+}
+
+/* --- MODAL OVERLAY & CONTENT --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.floating-modal {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  width: 450px;
+  max-width: 90%;
+  padding: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(99, 102, 241, 0.15);
+  transform: translateZ(50px);
+  animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+}
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-group label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.sleek-input {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sleek-input:focus {
+  outline: none;
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.save-btn {
+  background-color: var(--primary-accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+.save-btn:hover {
+  background-color: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+}
+/* --- LAYOUT V2 (65/35 SPLIT) --- */
+.main-layout-grid-v2 {
+  display: grid;
+  grid-template-columns: 65% 1fr;
+  gap: 32px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+@media (max-width: 1200px) {
+  .main-layout-grid-v2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.left-col-65 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.right-col-35 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --- MODULES GRID 6 --- */
+.modules-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 800px) {
+  .modules-grid-6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- GLASSMORPHISM & ACCENTS --- */
+.glass-panel {
+  background: rgba(30, 41, 59, 0.7) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+.turquoise-accent {
+  background-color: rgba(45, 212, 191, 0.15) !important;
+}
+.turquoise-accent mat-icon {
+  color: #2dd4bf !important;
+}
+
+.purple-accent {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+}
+.purple-accent mat-icon {
+  color: #6366f1 !important;
+}
+
+mat-card.tall-card {
+  min-height: 100%;
+  padding: 24px !important;
+  border-radius: 20px !important;
+}
+
+/* --- MODAL UPDATES --- */
+.glass-modal {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(99, 102, 241, 0.2);
+}
+.purple-btn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+.purple-btn:hover {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.6);
+}

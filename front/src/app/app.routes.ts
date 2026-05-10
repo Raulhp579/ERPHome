@@ -7,6 +7,7 @@ import { Roles } from './moduloAutenticacion/roles/roles';
 import { AsignarRol } from './moduloAutenticacion/asignar-rol/asignar-rol';
 import { MiPerfil } from './mi-perfil/mi-perfil';
 import { authGuard, guestGuard } from './moduloAutenticacion/guards/auth.guard';
+import { Movimiento } from './modulomovimiento/movimiento/movimiento';
 
 
 export const routes: Routes = [
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'usuarios/asignar/:id', component: AsignarUsuario, canActivate: [authGuard] },
     { path: 'roles', component: Roles, canActivate: [authGuard] },
     { path: 'roles/asignar/:id', component: AsignarRol, canActivate: [authGuard] },
-    { path: 'perfil/:id', component: MiPerfil, canActivate: [authGuard] }
+    { path: 'perfil/:id', component: MiPerfil, canActivate: [authGuard] },
+    { path: 'movimientos', component: Movimiento, canActivate: [authGuard] }
 ];

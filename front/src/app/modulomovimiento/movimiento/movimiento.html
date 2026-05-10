@@ -1,0 +1,218 @@
+<div class="dashboard-container">
+  <!-- Cabecera -->
+  <header class="header-section">
+    <div class="header-titles">
+      <h1>Movimientos</h1>
+      <p>Controla ingresos y egresos de la plataforma</p>
+    </div>
+    <button mat-flat-button class="btn-new" color="primary">
+      + Nuevo Movimiento
+    </button>
+  </header>
+
+  <!-- Tarjetas de Resumen -->
+  <div class="summary-grid">
+    <!-- Ingresos -->
+    <mat-card class="summary-card">
+      <div class="summary-header">
+        <span class="summary-title">TOTAL INGRESOS</span>
+        <mat-icon class="summary-icon income">arrow_upward</mat-icon>
+      </div>
+      <h2 class="summary-amount">$904,973.00</h2>
+      <p class="summary-subtitle">24 transacciones</p>
+    </mat-card>
+
+    <!-- Egresos -->
+    <mat-card class="summary-card">
+      <div class="summary-header">
+        <span class="summary-title">TOTAL EGRESOS</span>
+        <mat-icon class="summary-icon expense">arrow_downward</mat-icon>
+      </div>
+      <h2 class="summary-amount">$894,720.00</h2>
+      <p class="summary-subtitle">23 transacciones</p>
+    </mat-card>
+
+    <!-- Balance -->
+    <mat-card class="summary-card">
+      <div class="summary-header">
+        <span class="summary-title">BALANCE NETO</span>
+        <mat-icon class="summary-icon balance">account_balance_wallet</mat-icon>
+      </div>
+      <h2 class="summary-amount">$10,253.00</h2>
+      <p class="summary-subtitle">Saldo positivo</p>
+    </mat-card>
+  </div>
+
+  <!-- Búsqueda y Filtros -->
+  <div class="filters-container">
+    <div class="filter-row-1">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Buscar movimiento...">
+      </mat-form-field>
+
+      <mat-button-toggle-group value="todos" class="type-toggle-group">
+        <mat-button-toggle value="todos">Todos</mat-button-toggle>
+        <mat-button-toggle value="ingresos">Ingresos</mat-button-toggle>
+        <mat-button-toggle value="egresos">Egresos</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="filter-row-2">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-select placeholder="Todas las categorías" value="all">
+          <mat-option value="all">Todas las categorías</mat-option>
+          <mat-option value="nomina">Nómina</mat-option>
+          <mat-option value="ventas">Ventas</mat-option>
+          <mat-option value="infra">Infraestructura</mat-option>
+          <mat-option value="subs">Suscripciones</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-select placeholder="Todos los usuarios" value="all">
+          <mat-option value="all">Todos los usuarios</mat-option>
+          <mat-option value="juan">Juan Torres</mat-option>
+          <mat-option value="maria">María López</mat-option>
+          <mat-option value="carlos">Carlos Ruiz</mat-option>
+          <mat-option value="sistema">Sistema</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field date-field">
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="dd/mm/aaaa">
+          <input matEndDate placeholder="dd/mm/aaaa">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+
+      <div class="amount-range">
+        <span class="amount-label">Monto:</span>
+        <mat-form-field appearance="outline" class="amount-input">
+          <input matInput placeholder="Min">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="amount-input">
+          <input matInput placeholder="Max">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Movimientos -->
+  <div class="list-section">
+    <div class="list-header">
+      <span class="list-count">47 movimientos</span>
+      <div class="list-sort">
+        <span class="sort-label">Ordenar:</span>
+        <button class="sort-chip active">Fecha &darr;</button>
+        <button class="sort-chip">Monto</button>
+        <button class="sort-chip">Nombre</button>
+      </div>
+    </div>
+
+    <!-- Fila 1 (Ingreso) -->
+    <div class="movement-row">
+      <div class="movement-icon-container income">
+        <mat-icon>arrow_upward</mat-icon>
+      </div>
+      <div class="movement-details">
+        <h3 class="movement-title">Pago de cliente principal</h3>
+        <div class="movement-meta">
+          <span class="meta-category">Ventas</span>
+          <span class="meta-user">María López</span>
+        </div>
+      </div>
+      <div class="movement-date">25/04/2026</div>
+      <div class="movement-amount income">+$15,000.00</div>
+      <div class="movement-actions">
+        <button mat-icon-button class="action-btn">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="action-btn">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Fila 2 (Egreso) -->
+    <div class="movement-row">
+      <div class="movement-icon-container expense">
+        <mat-icon>arrow_downward</mat-icon>
+      </div>
+      <div class="movement-details">
+        <h3 class="movement-title">Pago nómina quincenal</h3>
+        <div class="movement-meta">
+          <span class="meta-category">Nómina</span>
+          <span class="meta-user">Juan Torres</span>
+          <span class="meta-note">Nota</span>
+        </div>
+      </div>
+      <div class="movement-date">25/04/2026</div>
+      <div class="movement-amount expense">-$8,500.00</div>
+      <div class="movement-actions">
+        <button mat-icon-button class="action-btn">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="action-btn">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Fila 3 (Egreso) -->
+    <div class="movement-row">
+      <div class="movement-icon-container expense">
+        <mat-icon>arrow_downward</mat-icon>
+      </div>
+      <div class="movement-details">
+        <h3 class="movement-title">Servicios de nube (AWS)</h3>
+        <div class="movement-meta">
+          <span class="meta-category infrastructure">Infraestructura</span>
+          <span class="meta-user">Sistema</span>
+        </div>
+      </div>
+      <div class="movement-date">24/04/2026</div>
+      <div class="movement-amount expense">-$450.00</div>
+      <div class="movement-actions">
+        <button mat-icon-button class="action-btn">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="action-btn">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Fila 4 (Ingreso) -->
+    <div class="movement-row">
+      <div class="movement-icon-container income">
+        <mat-icon>arrow_upward</mat-icon>
+      </div>
+      <div class="movement-details">
+        <h3 class="movement-title">Suscripción anual Pro</h3>
+        <div class="movement-meta">
+          <span class="meta-category subscriptions">Suscripciones</span>
+          <span class="meta-user">Carlos Ruiz</span>
+          <span class="meta-note">Nota</span>
+        </div>
+      </div>
+      <div class="movement-date">23/04/2026</div>
+      <div class="movement-amount income">+$1,200.00</div>
+      <div class="movement-actions">
+        <button mat-icon-button class="action-btn">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="action-btn">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie de página -->
+  <div class="footer-container">
+    <button class="load-more-btn">Cargar más &middot; 35 restantes</button>
+  </div>
+</div>

@@ -36,10 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('cambiar-contrasena', [AuthController::class, 'cambiarContrasenya']);
 
     /////////////////MOVIMIENTO/////////////////////
-    Route::apiResource('movimiento', MovimientoController::class);
     Route::get('movimiento/ingresos', [MovimientoController::class, 'getTotalIngresos']);
     Route::get('movimiento/gastos', [MovimientoController::class, 'getTotalGastos']);
     Route::get('movimiento/balance', [MovimientoController::class, 'getTotalBalance']);
+    Route::apiResource('movimiento', MovimientoController::class);
     
 
 });

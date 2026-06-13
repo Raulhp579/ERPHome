@@ -29,11 +29,13 @@
             "styles": [
               "src/material-theme.scss",
               "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css",
+              "node_modules/select2/dist/css/select2.min.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/datatables.net/js/dataTables.min.js"
+              "node_modules/datatables.net/js/dataTables.min.js",
+              "node_modules/select2/dist/js/select2.full.min.js"
             ],
             "allowedCommonJsDependencies": [
               "sweetalert2"

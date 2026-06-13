@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\modulomovimiento;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\moduloAutenticacion\PermisoController;
-use App\Models\modulomovimiento\Movimiento;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\modulomovimiento\Movimiento;
 
 class MovimientoController extends Controller
 {
     public function index(Request $request)
     {
         try {
-            if (Auth::user()->can('ver_movimiento') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_movimiento'))) {
+            if (Auth::user()->can('ver_movimiento')) {
                 $query = Movimiento::query();
 
                 if ($request->has('tipo')) {
@@ -58,17 +57,17 @@ class MovimientoController extends Controller
     public function store(Request $request)
     {
         try {
-            if (Auth::user()->can('crear_movimiento') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('crear_movimiento'))) {
+            if (Auth::user()->can('crear_movimiento')) {
                 $validar = Validator::make($request->all(), [
                     'cantidad'=> 'numeric|required',
-                    'descripcion'=>'string|required',
+                    'categoria'=>'string|required',
                     'tipo'=> 'in:INGRESO,GASTO|required',
                 ],
                 [
                     'cantidad.required'=>'La cantidad es requerida',
                     'cantidad.numeric'=>'La cantidad debe ser un numero',
-                    'descripcion.required'=>'La descripcion es requerida',
-                    'descripcion.string'=>'La descripcion debe ser un texto',
+                    'categoria.required'=>'La categoria es requerida',
+                    'categoria.string'=>'La categoria debe ser un texto',
                     'tipo.required'=>'El tipo es requerido',
                     'tipo.in'=>'El tipo debe ser INGRESO o GASTO',
                 ]
@@ -84,8 +83,9 @@ class MovimientoController extends Controller
 
             $movimiento = new Movimiento();
             $movimiento->cantidad = $request->cantidad;
-            $movimiento->descripcion = $request->descripcion;
+            $movimiento->categoria = $request->categoria;
             $movimiento->tipo = $request->tipo;
+            $movimiento->fecha = $request->fecha;
             $movimiento->user_id = Auth::user()->id;
             $movimiento->historial = [[
                 'fecha'=> now()->toDayDateTimeString(),
@@ -113,7 +113,7 @@ class MovimientoController extends Controller
     public function show($id)
     {
         try {
-            if (Auth::user()->can('ver_movimiento') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_movimiento'))) {
+            if (Auth::user()->can('ver_movimiento')) {
                 $movimiento = Movimiento::find($id);
                 if($movimiento){
                     return response()->json($movimiento);
@@ -141,7 +141,7 @@ class MovimientoController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if (Auth::user()->can('actualizar_movimiento') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('actualizar_movimiento'))) {
+            if (Auth::user()->can('actualizar_movimiento')) {
                 $movimiento = Movimiento::find($id);
                 if ($movimiento) {
                     $validar = Validator::make(
@@ -207,7 +207,7 @@ class MovimientoController extends Controller
     public function destroy($id)
     {
         try {
-            if (Auth::user()->can('eliminar_movimiento') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('eliminar_movimiento'))) {
+            if (Auth::user()->can('eliminar_movimiento')) {
                 $movimiento = Movimiento::find($id);
                 if($movimiento){
                     $movimiento->delete();
@@ -252,7 +252,8 @@ class MovimientoController extends Controller
             if ($validar->fails()) {
                 return response()->json(['success' => false, 'error' => $validar->errors()], 400);
             }
-            if (Auth::user()->can('ver_movimiento') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_movimiento'))) {
+
+            if (Auth::user()->can('ver_movimiento')) {
                 $query = Movimiento::where('tipo', 'INGRESO');
                 if ($request->has('fecha_inicio') && $request->has('fecha_fin')) {
                     $query->whereBetween('created_at', [$request->fecha_inicio, $request->fecha_fin . ' 23:59:59']);
@@ -292,7 +293,7 @@ class MovimientoController extends Controller
             if ($validar->fails()) {
                 return response()->json(['success' => false, 'error' => $validar->errors()], 400);
             }
-            if (Auth::user()->can('ver_movimiento') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_movimiento'))) {
+            if (Auth::user()->can('ver_movimiento')) {
                 $query = Movimiento::where('tipo', 'GASTO');
                 if ($request->has('fecha_inicio') && $request->has('fecha_fin')) {
                     $query->whereBetween('created_at', [$request->fecha_inicio, $request->fecha_fin . ' 23:59:59']);
@@ -332,7 +333,7 @@ class MovimientoController extends Controller
             if ($validar->fails()) {
                 return response()->json(['success' => false, 'error' => $validar->errors()], 400);
             }
-            if (Auth::user()->can('ver_movimiento') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_movimiento'))) {
+            if (Auth::user()->can('ver_movimiento')) {
                 $queryIngresos = Movimiento::where('tipo', 'INGRESO');
                 $queryGastos = Movimiento::where('tipo', 'GASTO');
                 if ($request->has('fecha_inicio') && $request->has('fecha_fin')) {

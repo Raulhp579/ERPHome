@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
-use App\Http\Controllers\moduloAutenticacion\PermisoController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -22,7 +21,7 @@ class RolController extends Controller
     public function index()
     {
         try{
-            if(Auth::user()->can('ver_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_roles'))){
+            if(Auth::user()->can('ver_roles')){
                 $role = Role::all();
                 return DataTables::of($role)
                     ->editColumn('name', function($role){
@@ -56,7 +55,7 @@ class RolController extends Controller
     public function store(Request $request)
     {
         try{
-            if(Auth::user()->can('crear_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('crear_roles'))){
+            if(Auth::user()->can('crear_roles')){
                 $rol = Role::create([
                     'name' => $request->name,
                     'guard_name' => 'web'
@@ -85,7 +84,7 @@ class RolController extends Controller
     public function show(string $id)
     {
         try{
-            if(Auth::user()->can('ver_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_roles'))){
+            if(Auth::user()->can('ver_roles')){
                 $rol = Role::find($id);
                 return response()->json([
                     'message' => 'Rol obtenido correctamente',
@@ -111,7 +110,7 @@ class RolController extends Controller
     public function update(Request $request, string $id)
     {
         try{
-            if(Auth::user()->can('actualizar_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('actualizar_roles'))){
+            if(Auth::user()->can('actualizar_roles')){
                 $rol = Role::find($id);
                 $rol->update([
                     'name' => $request->name
@@ -140,7 +139,7 @@ class RolController extends Controller
     public function destroy(string $id)
     {
         try{
-            if(Auth::user()->can('eliminar_roles') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('eliminar_roles'))){
+            if(Auth::user()->can('eliminar_roles')){
                 $rol = Role::where("id",$id)->first();
                 if($rol->name == 'admin'){
                     return response()->json([

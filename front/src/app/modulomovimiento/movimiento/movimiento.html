@@ -5,9 +5,7 @@
       <h1>Movimientos</h1>
       <p>Controla ingresos y egresos de la plataforma</p>
     </div>
-    <button mat-flat-button class="btn-new" color="primary">
-      + Nuevo Movimiento
-    </button>
+    <button mat-flat-button class="btn-new" color="primary" (click)="showCrearEditarMovimiento = true">+ Nuevo Movimiento</button>
   </header>
 
   <!-- Tarjetas de Resumen -->
@@ -18,8 +16,10 @@
         <span class="summary-title">TOTAL INGRESOS</span>
         <mat-icon class="summary-icon income">arrow_upward</mat-icon>
       </div>
-      <h2 class="summary-amount">$904,973.00</h2>
-      <p class="summary-subtitle">24 transacciones</p>
+      <h2 class="summary-amount">
+        {{ totalIngresos ? totalIngresos : (0 | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') }}
+      </h2>
+      <p class="summary-subtitle">{{ numeroDeIngresos }} transacciones</p>
     </mat-card>
 
     <!-- Egresos -->
@@ -28,8 +28,10 @@
         <span class="summary-title">TOTAL EGRESOS</span>
         <mat-icon class="summary-icon expense">arrow_downward</mat-icon>
       </div>
-      <h2 class="summary-amount">$894,720.00</h2>
-      <p class="summary-subtitle">23 transacciones</p>
+      <h2 class="summary-amount">
+        {{ totalGastos ? totalGastos : (0 | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') }}
+      </h2>
+      <p class="summary-subtitle">{{ numeroDeGastos }} transacciones</p>
     </mat-card>
 
     <!-- Balance -->
@@ -38,8 +40,10 @@
         <span class="summary-title">BALANCE NETO</span>
         <mat-icon class="summary-icon balance">account_balance_wallet</mat-icon>
       </div>
-      <h2 class="summary-amount">$10,253.00</h2>
-      <p class="summary-subtitle">Saldo positivo</p>
+      <h2 class="summary-amount">
+        {{ totalBalance ? totalBalance : (0 | currency: 'EUR' : 'symbol' : '1.2-2' : 'es') }}
+      </h2>
+      <p class="summary-subtitle">{{ esPositivo ? 'Saldo positivo' : 'Saldo negativo' }}</p>
     </mat-card>
   </div>
 
@@ -48,7 +52,7 @@
     <div class="filter-row-1">
       <mat-form-field appearance="outline" class="search-field">
         <mat-icon matPrefix>search</mat-icon>
-        <input matInput placeholder="Buscar movimiento...">
+        <input matInput placeholder="Buscar movimiento..." />
       </mat-form-field>
 
       <mat-button-toggle-group value="todos" class="type-toggle-group">
@@ -59,30 +63,15 @@
     </div>
 
     <div class="filter-row-2">
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-select placeholder="Todas las categorías" value="all">
-          <mat-option value="all">Todas las categorías</mat-option>
-          <mat-option value="nomina">Nómina</mat-option>
-          <mat-option value="ventas">Ventas</mat-option>
-          <mat-option value="infra">Infraestructura</mat-option>
-          <mat-option value="subs">Suscripciones</mat-option>
-        </mat-select>
-      </mat-form-field>
 
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-select placeholder="Todos los usuarios" value="all">
-          <mat-option value="all">Todos los usuarios</mat-option>
-          <mat-option value="juan">Juan Torres</mat-option>
-          <mat-option value="maria">María López</mat-option>
-          <mat-option value="carlos">Carlos Ruiz</mat-option>
-          <mat-option value="sistema">Sistema</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="filter-field">
+        <select name="usuarios" id="usuarios" class="form-select"></select>
+      </div>
 
       <mat-form-field appearance="outline" class="filter-field date-field">
         <mat-date-range-input [rangePicker]="picker">
-          <input matStartDate placeholder="dd/mm/aaaa">
-          <input matEndDate placeholder="dd/mm/aaaa">
+          <input matStartDate placeholder="dd/mm/aaaa" />
+          <input matEndDate placeholder="dd/mm/aaaa" />
         </mat-date-range-input>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
@@ -91,10 +80,10 @@
       <div class="amount-range">
         <span class="amount-label">Monto:</span>
         <mat-form-field appearance="outline" class="amount-input">
-          <input matInput placeholder="Min">
+          <input matInput placeholder="Min" />
         </mat-form-field>
         <mat-form-field appearance="outline" class="amount-input">
-          <input matInput placeholder="Max">
+          <input matInput placeholder="Max" />
         </mat-form-field>
       </div>
     </div>
@@ -103,7 +92,7 @@
   <!-- Lista de Movimientos -->
   <div class="list-section">
     <div class="list-header">
-      <span class="list-count">47 movimientos</span>
+      <span class="list-count">{{ totalMovimientos ? totalMovimientos : 0 }} movimientos</span>
       <div class="list-sort">
         <span class="sort-label">Ordenar:</span>
         <button class="sort-chip active">Fecha &darr;</button>
@@ -135,84 +124,92 @@
         </button>
       </div>
     </div>
-
-    <!-- Fila 2 (Egreso) -->
-    <div class="movement-row">
-      <div class="movement-icon-container expense">
-        <mat-icon>arrow_downward</mat-icon>
-      </div>
-      <div class="movement-details">
-        <h3 class="movement-title">Pago nómina quincenal</h3>
-        <div class="movement-meta">
-          <span class="meta-category">Nómina</span>
-          <span class="meta-user">Juan Torres</span>
-          <span class="meta-note">Nota</span>
-        </div>
-      </div>
-      <div class="movement-date">25/04/2026</div>
-      <div class="movement-amount expense">-$8,500.00</div>
-      <div class="movement-actions">
-        <button mat-icon-button class="action-btn">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button class="action-btn">
-          <mat-icon>delete_outline</mat-icon>
+    @if (hayMas) {
+      <div class="footer-container">
+        <button class="load-more-btn" type="button" (click)="cargarMas()" [disabled]="loading">
+          @if (loading) { Cargando... } @else { Cargar más · {{ total - movimientos.length }} restantes }
         </button>
       </div>
-    </div>
-
-    <!-- Fila 3 (Egreso) -->
-    <div class="movement-row">
-      <div class="movement-icon-container expense">
-        <mat-icon>arrow_downward</mat-icon>
-      </div>
-      <div class="movement-details">
-        <h3 class="movement-title">Servicios de nube (AWS)</h3>
-        <div class="movement-meta">
-          <span class="meta-category infrastructure">Infraestructura</span>
-          <span class="meta-user">Sistema</span>
-        </div>
-      </div>
-      <div class="movement-date">24/04/2026</div>
-      <div class="movement-amount expense">-$450.00</div>
-      <div class="movement-actions">
-        <button mat-icon-button class="action-btn">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button class="action-btn">
-          <mat-icon>delete_outline</mat-icon>
-        </button>
-      </div>
-    </div>
-
-    <!-- Fila 4 (Ingreso) -->
-    <div class="movement-row">
-      <div class="movement-icon-container income">
-        <mat-icon>arrow_upward</mat-icon>
-      </div>
-      <div class="movement-details">
-        <h3 class="movement-title">Suscripción anual Pro</h3>
-        <div class="movement-meta">
-          <span class="meta-category subscriptions">Suscripciones</span>
-          <span class="meta-user">Carlos Ruiz</span>
-          <span class="meta-note">Nota</span>
-        </div>
-      </div>
-      <div class="movement-date">23/04/2026</div>
-      <div class="movement-amount income">+$1,200.00</div>
-      <div class="movement-actions">
-        <button mat-icon-button class="action-btn">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button class="action-btn">
-          <mat-icon>delete_outline</mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pie de página -->
-  <div class="footer-container">
-    <button class="load-more-btn">Cargar más &middot; 35 restantes</button>
+    }
   </div>
 </div>
+
+
+<!-- MODALES -->
+
+<!-- MODAL CREAR Editar MOVIMIENTO -->
+@if (showCrearEditarMovimiento) {
+<div class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <span class="modal-kicker">Nuevo registro</span>
+        <h2>Crear Movimiento</h2>
+        <p>Completa los datos para registrar un ingreso o egreso.</p>
+      </div>
+      <button mat-icon-button class="modal-close-btn" type="button" aria-label="Cerrar modal" (click)="showCrearEditarMovimiento = false">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="modal-type-selector">
+      <button type="button" class="modal-type-option income active">
+        <mat-icon>arrow_upward</mat-icon>
+        <span>Ingreso</span>
+      </button>
+      <button type="button" class="modal-type-option expense" >
+        <mat-icon>arrow_downward</mat-icon>
+        <span>Egreso</span>
+      </button>
+    </div>
+
+    <div class="modal-form-grid">
+      <mat-form-field appearance="outline" class="modal-field">
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="modalDatePicker" placeholder="dd/mm/aaaa" />
+        <mat-datepicker-toggle matIconSuffix [for]="modalDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #modalDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="modal-field">
+        <mat-label>Monto</mat-label>
+        <span matTextPrefix>€&nbsp;</span>
+        <input matInput type="number" placeholder="0.00" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="modal-field full-width">
+        <mat-label>Categoría</mat-label>
+        <mat-select [(ngModel)]="categoria">
+          <mat-option value="comida">Comida</mat-option>
+          <mat-option value="transporte">Transporte</mat-option>
+          <mat-option value="suscripciones">Suscripciones</mat-option>
+          <mat-option value="otros">Otros</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      @if (categoria === 'otros') {
+        <mat-form-field appearance="outline" class="modal-field full-width">
+          <mat-label>Categoría</mat-label>
+          <textarea matInput rows="3" placeholder="Añade una nota opcional sobre este movimiento"></textarea>
+        </mat-form-field>
+      }
+
+    </div>
+
+    <div class="modal-summary">
+      <div class="modal-summary-icon">
+        <mat-icon>receipt_long</mat-icon>
+      </div>
+      <div>
+        <span>Resumen</span>
+        <p>El movimiento se guardará con la información indicada en el formulario.</p>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="modal-secondary-btn" (click)="showCrearEditarMovimiento = false">Cancelar</button>
+      <button type="button" class="modal-primary-btn">Guardar Movimiento</button>
+    </div>
+  </div>
+</div>
+}

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Table('movimientos')]
-#[Fillable(['cantidad', 'descripcion', 'tipo', 'user_id','historial', 'created_at', 'update_at', 'deleted_at'])]
+#[Fillable(['cantidad', 'categoria', 'fecha', 'tipo', 'user_id','historial', 'created_at', 'update_at', 'deleted_at'])]
 class Movimiento extends Model
 {
     use SoftDeletes;

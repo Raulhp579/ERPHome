@@ -17,8 +17,8 @@ export class MovimientoService {
     });
   }
   
-  public getAll(): Observable<any> {
-    return this.http.get(this.apiUrl, { headers: this.getHeaders() });
+  public getAll(filtros: any = {}): Observable<any> {
+    return this.http.get(this.apiUrl, { headers: this.getHeaders(), params: filtros });
   }
   
   public getById(id: number): Observable<any> {

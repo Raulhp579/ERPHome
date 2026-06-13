@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\moduloAutenticacion\PermisoController;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -20,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         try{
-            if(Auth::user()->can('ver_usuarios') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_usuarios'))){
+            if(Auth::user()->can('ver_usuarios')){
                 $usuarios = User::query();
 
                 return DataTables::of($usuarios)
@@ -72,7 +71,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try{
-            if(Auth::user()->can('crear_usuarios') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('crear_usuarios'))){
+            if(Auth::user()->can('crear_usuarios')){
                 $usuario = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
@@ -111,7 +110,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         try{
-            if(Auth::user()->can('ver_usuarios') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('ver_usuarios'))){
+            if(Auth::user()->can('ver_usuarios')){
                 $usuario = User::find($id);
                 $user = [
                     "id"=>$usuario->id,
@@ -144,7 +143,7 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         try{
-            if(Auth::user()->can('actualizar_usuarios') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('actualizar_usuarios'))){
+            if(Auth::user()->can('actualizar_usuarios')){
                 $usuario = User::find($id);
                 if(isset($request->password)){
                     $usuario->update([
@@ -199,7 +198,7 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         try{
-            if(Auth::user()->can('eliminar_usuarios') || Auth::user()->hasPermissionViaRole(PermisoController::getPermisorPorNombre('eliminar_usuarios'))){
+            if(Auth::user()->can('eliminar_usuarios')){
                 $usuario = User::find($id);
                 $usuario->delete();
                 return response()->json([

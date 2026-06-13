@@ -6,11 +6,12 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, CommonModule, FullCalendarModule],
+  imports: [MatCardModule, MatIconModule, CommonModule, FullCalendarModule, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -28,5 +29,5 @@ export class Home {
     ]
   };
 
-  showReminderModal = true;
+  showReminderModal = false;
 }

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\modulomovimiento\Movimiento;
-
+use Carbon\Carbon;
 class MovimientoController extends Controller
 {
     public function index(Request $request)
@@ -62,6 +62,7 @@ class MovimientoController extends Controller
                     'cantidad'=> 'numeric|required',
                     'categoria'=>'string|required',
                     'tipo'=> 'in:INGRESO,GASTO|required',
+                    'fecha'=> 'required|date',
                 ],
                 [
                     'cantidad.required'=>'La cantidad es requerida',
@@ -70,6 +71,8 @@ class MovimientoController extends Controller
                     'categoria.string'=>'La categoria debe ser un texto',
                     'tipo.required'=>'El tipo es requerido',
                     'tipo.in'=>'El tipo debe ser INGRESO o GASTO',
+                    'fecha.required'=>'La fecha es requerida',
+                    'fecha.date'=>'La fecha debe ser valida',
                 ]
             );
 
@@ -83,9 +86,9 @@ class MovimientoController extends Controller
 
             $movimiento = new Movimiento();
             $movimiento->cantidad = $request->cantidad;
-            $movimiento->categoria = $request->categoria;
+            $request->otros ? $movimiento->categoria = $request->otros : $movimiento->categoria = $request->categoria;
             $movimiento->tipo = $request->tipo;
-            $movimiento->fecha = $request->fecha;
+            $movimiento->fecha = Carbon::parse($request->fecha)->toDateString();
             $movimiento->user_id = Auth::user()->id;
             $movimiento->historial = [[
                 'fecha'=> now()->toDayDateTimeString(),
@@ -93,7 +96,6 @@ class MovimientoController extends Controller
                 'usuario'=>Auth::user()->name
             ]];
             $movimiento->save();
-            
             return response()->json($movimiento);
             }else{
                 return response()->json([

@@ -24,9 +24,9 @@ CREATE TABLE `movimientos`(
     `categoria` VARCHAR(255) NOT NULL,
     `fecha` DATE NOT NULL,
     `historial` JSON NOT NULL,
-    `created_at` DATETIME NOT NULL,
-    `update_at` DATETIME NOT NULL,
-    `deleted_at` DATETIME NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `deleted_at` DATETIME NULL DEFAULT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 )

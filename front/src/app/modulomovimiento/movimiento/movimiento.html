@@ -5,7 +5,14 @@
       <h1>Movimientos</h1>
       <p>Controla ingresos y egresos de la plataforma</p>
     </div>
-    <button mat-flat-button class="btn-new" color="primary" (click)="showCrearEditarMovimiento = true">+ Nuevo Movimiento</button>
+    <button
+      mat-flat-button
+      class="btn-new"
+      color="primary"
+      (click)="showCrearEditarMovimiento = true"
+    >
+      + Nuevo Movimiento
+    </button>
   </header>
 
   <!-- Tarjetas de Resumen -->
@@ -63,7 +70,6 @@
     </div>
 
     <div class="filter-row-2">
-
       <div class="filter-field">
         <select name="usuarios" id="usuarios" class="form-select"></select>
       </div>
@@ -127,89 +133,120 @@
     @if (hayMas) {
       <div class="footer-container">
         <button class="load-more-btn" type="button" (click)="cargarMas()" [disabled]="loading">
-          @if (loading) { Cargando... } @else { Cargar más · {{ total - movimientos.length }} restantes }
+          @if (loading) {
+            Cargando...
+          } @else {
+            Cargar más · {{ total - movimientos.length }} restantes
+          }
         </button>
       </div>
     }
   </div>
 </div>
 
-
 <!-- MODALES -->
 
 <!-- MODAL CREAR Editar MOVIMIENTO -->
 @if (showCrearEditarMovimiento) {
-<div class="modal-overlay">
-  <div class="modal-card">
-    <div class="modal-header">
-      <div>
-        <span class="modal-kicker">Nuevo registro</span>
-        <h2>Crear Movimiento</h2>
-        <p>Completa los datos para registrar un ingreso o egreso.</p>
+  <form action="" class="modal-form" [formGroup]="movimientoForm">
+    <div class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <span class="modal-kicker">Nuevo registro</span>
+            <h2>Crear Movimiento</h2>
+            <p>Completa los datos para registrar un ingreso o egreso.</p>
+          </div>
+          <button
+            mat-icon-button
+            class="modal-close-btn"
+            type="button"
+            aria-label="Cerrar modal"
+            (click)="showCrearEditarMovimiento = false"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div class="modal-type-selector">
+          <button
+            type="button"
+            id="ingreso"
+            (click)="cambiarTipoMovimiento('INGRESO')"
+            class="modal-type-option income active"
+          >
+            <mat-icon>arrow_upward</mat-icon>
+            <span>Ingreso</span>
+          </button>
+          <button
+            type="button"
+            id="egreso"
+            (click)="cambiarTipoMovimiento('EGRESO')"
+            class="modal-type-option expense"
+          >
+            <mat-icon>arrow_downward</mat-icon>
+            <span>Egreso</span>
+          </button>
+        </div>
+
+        <div class="modal-form-grid">
+          <mat-form-field appearance="outline" class="modal-field">
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="modalDatePicker" placeholder="dd/mm/aaaa" formControlName="fecha" />
+            <mat-datepicker-toggle matIconSuffix [for]="modalDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #modalDatePicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="modal-field">
+            <mat-label>Monto</mat-label>
+            <span matTextPrefix>€&nbsp;</span>
+            <input matInput type="number" placeholder="0.00" formControlName="cantidad"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="modal-field full-width">
+            <mat-label>Categoría</mat-label>
+            <mat-select [(ngModel)]="categoria" formControlName="categoria">
+              <mat-option value="comida">Comida</mat-option>
+              <mat-option value="transporte">Transporte</mat-option>
+              <mat-option value="suscripciones">Suscripciones</mat-option>
+              <mat-option value="otros">Otros</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          @if (categoria === 'otros') {
+            <mat-form-field appearance="outline" class="modal-field full-width">
+              <mat-label>Categoría</mat-label>
+              <textarea
+                matInput
+                rows="3"
+                placeholder="Añade una nota opcional sobre este movimiento"
+                formControlName="otros"
+              ></textarea>
+            </mat-form-field>
+          }
+        </div>
+
+        <div class="modal-summary">
+          <div class="modal-summary-icon">
+            <mat-icon>receipt_long</mat-icon>
+          </div>
+          <div>
+            <span>Resumen</span>
+            <p>El movimiento se guardará con la información indicada en el formulario.</p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="modal-secondary-btn"
+            (click)="showCrearEditarMovimiento = false"
+          >
+            Cancelar
+          </button>
+          <button type="button" class="modal-primary-btn" (click)="onSubmit()">Guardar Movimiento</button>
+        </div>
       </div>
-      <button mat-icon-button class="modal-close-btn" type="button" aria-label="Cerrar modal" (click)="showCrearEditarMovimiento = false">
-        <mat-icon>close</mat-icon>
-      </button>
     </div>
-
-    <div class="modal-type-selector">
-      <button type="button" class="modal-type-option income active">
-        <mat-icon>arrow_upward</mat-icon>
-        <span>Ingreso</span>
-      </button>
-      <button type="button" class="modal-type-option expense" >
-        <mat-icon>arrow_downward</mat-icon>
-        <span>Egreso</span>
-      </button>
-    </div>
-
-    <div class="modal-form-grid">
-      <mat-form-field appearance="outline" class="modal-field">
-        <mat-label>Fecha</mat-label>
-        <input matInput [matDatepicker]="modalDatePicker" placeholder="dd/mm/aaaa" />
-        <mat-datepicker-toggle matIconSuffix [for]="modalDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #modalDatePicker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="modal-field">
-        <mat-label>Monto</mat-label>
-        <span matTextPrefix>€&nbsp;</span>
-        <input matInput type="number" placeholder="0.00" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="modal-field full-width">
-        <mat-label>Categoría</mat-label>
-        <mat-select [(ngModel)]="categoria">
-          <mat-option value="comida">Comida</mat-option>
-          <mat-option value="transporte">Transporte</mat-option>
-          <mat-option value="suscripciones">Suscripciones</mat-option>
-          <mat-option value="otros">Otros</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      @if (categoria === 'otros') {
-        <mat-form-field appearance="outline" class="modal-field full-width">
-          <mat-label>Categoría</mat-label>
-          <textarea matInput rows="3" placeholder="Añade una nota opcional sobre este movimiento"></textarea>
-        </mat-form-field>
-      }
-
-    </div>
-
-    <div class="modal-summary">
-      <div class="modal-summary-icon">
-        <mat-icon>receipt_long</mat-icon>
-      </div>
-      <div>
-        <span>Resumen</span>
-        <p>El movimiento se guardará con la información indicada en el formulario.</p>
-      </div>
-    </div>
-
-    <div class="modal-actions">
-      <button type="button" class="modal-secondary-btn" (click)="showCrearEditarMovimiento = false">Cancelar</button>
-      <button type="button" class="modal-primary-btn">Guardar Movimiento</button>
-    </div>
-  </div>
-</div>
+  </form>
 }

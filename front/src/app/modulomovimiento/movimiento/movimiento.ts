@@ -14,6 +14,8 @@ import { CurrencyPipe } from '@angular/common';
 import { Movimiento as MovimientoModel } from '../modelos/movimiento';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 declare const $: any;
 (window as any).$ = $;
 (window as any).jQuery = $;
@@ -32,6 +34,7 @@ declare const $: any;
     MatNativeDateModule,
     CurrencyPipe,
     FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './movimiento.html',
   styleUrl: './movimiento.css',
@@ -69,6 +72,7 @@ movimientoForm = new FormGroup({
   categoria: new FormControl('', [Validators.required]),
   fecha: new FormControl(new Date(), [Validators.required]),
   otros: new FormControl('', [Validators.maxLength(255)]), //opcional
+  tipo: new FormControl(),
 })
 
 categoria: string = '';
@@ -158,5 +162,59 @@ categoria: string = '';
         cache: true,
       },
     });
+  }
+
+  tipoAsignado: string = 'INGRESO';
+
+  cambiarTipoMovimiento(tipo: string): void {
+    const botonIngreso = document.getElementById('ingreso');
+    const botonEgreso = document.getElementById('egreso');
+    if (tipo === 'INGRESO') {
+      botonIngreso?.classList.add('active');
+      botonEgreso?.classList.remove('active');
+      this.tipoAsignado = 'INGRESO';
+    } else {
+      botonEgreso?.classList.add('active');
+      botonIngreso?.classList.remove('active');
+      this.tipoAsignado = 'GASTO';
+    }
+  }
+
+  private formatFechaLocal(fecha: Date): string {
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, '0');
+    const day = String(fecha.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  onSubmit(){
+    if(this.movimientoForm.valid){
+      const { fecha, ...resto } = this.movimientoForm.getRawValue();
+      const payload = {
+        ...resto,
+        tipo: this.tipoAsignado,
+        fecha: fecha instanceof Date ? this.formatFechaLocal(fecha) : fecha,
+      };
+      this.movimientoService.create(payload).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Movimiento creado exitosamente',
+          icon: 'success',
+          confirmButtonColor: '#00f2ad',
+          confirmButtonText: 'Aceptar',
+        });
+        this.cargarMovimientos({ page: 1 });
+      },
+      error: (error) => {
+        Swal.fire({
+          title: 'Error al crear el movimiento',
+          text: error.error.message,
+          icon: 'error',
+          confirmButtonColor: '#ef4444',
+          confirmButtonText: 'Aceptar',
+        });
+        }
+      })
+    }
   }
 }

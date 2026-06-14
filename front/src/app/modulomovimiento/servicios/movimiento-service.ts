@@ -25,11 +25,11 @@ export class MovimientoService {
     return this.http.get(this.apiUrl + '/' + id, { headers: this.getHeaders() });
   }
   
-  public create(movimiento: Movimiento): Observable<any> {
+  public create(movimiento: any): Observable<any> {
     return this.http.post(this.apiUrl, movimiento, { headers: this.getHeaders() });
   }
   
-  public update(id: number, movimiento: Movimiento): Observable<any> {
+  public update(id: number, movimiento: any): Observable<any> {
     return this.http.put(this.apiUrl + '/' + id, movimiento, { headers: this.getHeaders() });
   }
   

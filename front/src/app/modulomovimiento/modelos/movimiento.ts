@@ -1,7 +1,7 @@
 export interface Movimiento {
     id: number;
     cantidad: number;
-    descripcion: string;
+    categoria: string;
     tipo: string;
     user_id: number;
     historial: any[];

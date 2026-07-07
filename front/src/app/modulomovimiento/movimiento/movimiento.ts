@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +15,7 @@ import { Movimiento as MovimientoModel } from '../modelos/movimiento';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 declare const $: any;
 (window as any).$ = $;
@@ -35,12 +36,13 @@ declare const $: any;
     CurrencyPipe,
     FormsModule,
     ReactiveFormsModule,
+    DatePipe,
   ],
   templateUrl: './movimiento.html',
   styleUrl: './movimiento.css',
-})  
+})
 export class Movimiento implements OnInit, AfterViewInit {
-  constructor(private movimientoService: MovimientoService) {}
+  constructor(private movimientoService: MovimientoService, private cdr: ChangeDetectorRef) {}
 
   ////////////ESTADISTICAS////////////////
   totalIngresos: number = 0;
@@ -81,7 +83,6 @@ categoria: string = '';
   //inicializacion
   async ngOnInit(): Promise<void> {
     this.totalIngresos = this.toNumber(await firstValueFrom(this.movimientoService.getTotalIngresos()));
-    console.log(this.totalIngresos);
     this.totalGastos = this.toNumber(await firstValueFrom(this.movimientoService.getTotalGastos()));
     this.totalBalance = this.toNumber(await firstValueFrom(this.movimientoService.getTotalBalance()));
 
@@ -92,6 +93,7 @@ categoria: string = '';
     this.esPositivo = this.totalIngresos > this.totalGastos;
 
     await this.cargarMovimientos({ page: 1 });
+    this.cdr.detectChanges();
   }
 
 
@@ -99,8 +101,8 @@ categoria: string = '';
     this.initSelects2();
   }
 
-  
-  //funciones 
+
+  //funciones
   async cargarMovimientos(params: Record<string, unknown> = {}): Promise<void> {
     if (this.loading) return;
 

@@ -107,29 +107,30 @@
       </div>
     </div>
 
-    <!-- Fila 1 (Ingreso) -->
-    <div class="movement-row">
-      <div class="movement-icon-container income">
-        <mat-icon>arrow_upward</mat-icon>
-      </div>
-      <div class="movement-details">
-        <h3 class="movement-title">Pago de cliente principal</h3>
-        <div class="movement-meta">
-          <span class="meta-category">Ventas</span>
-          <span class="meta-user">María López</span>
+    <!-- LISTA DE MOVIMIENTOS -->
+     @for (movimiento of movimientos; track movimiento.id) {
+      <div class="movement-row">
+        <div class="movement-icon-container income {{ movimiento.tipo === 'INGRESO' ? 'income' : 'expense' }}">
+          <mat-icon>{{ movimiento.tipo === 'INGRESO' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+        </div>
+        <div class="movement-details">
+          <h3 class="movement-title">{{ movimiento.user.name }}</h3>
+          <div class="movement-meta">
+            <span class="meta-category">{{ movimiento.categoria }}</span>
+          </div>
+        </div>
+        <div class="movement-date">{{ movimiento.created_at | date: 'dd/MM/yyyy HH:mm' }}</div>
+        <div class="movement-amount income">+{{ movimiento.cantidad | currency: 'EUR' : 'symbol' : '1.2-2' : 'es' }}</div>
+        <div class="movement-actions">
+          <button mat-icon-button class="action-btn">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button class="action-btn">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
         </div>
       </div>
-      <div class="movement-date">25/04/2026</div>
-      <div class="movement-amount income">+$15,000.00</div>
-      <div class="movement-actions">
-        <button mat-icon-button class="action-btn">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button class="action-btn">
-          <mat-icon>delete_outline</mat-icon>
-        </button>
-      </div>
-    </div>
+    }
     @if (hayMas) {
       <div class="footer-container">
         <button class="load-more-btn" type="button" (click)="cargarMas()" [disabled]="loading">

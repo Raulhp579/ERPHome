@@ -15,7 +15,8 @@ class MovimientoController extends Controller
     {
         try {
             if (Auth::user()->can('ver_movimiento')) {
-                $query = Movimiento::query();
+                $query = Movimiento::query()
+                ->with('user');
 
                 if ($request->has('tipo')) {
                     $query->where('tipo', $request->tipo);
@@ -34,10 +35,7 @@ class MovimientoController extends Controller
                     $query->where('cantidad', '<=', $request->cantidad_max);
                 }
 
-                if ($request->has('order')) {
-                    $query->orderBy('created_at', $request->order);
-                }
-
+                $query->orderBy('created_at', 'desc');
                 return response()->json($query->paginate(10));
             }else{
                 return response()->json([
@@ -236,7 +234,7 @@ class MovimientoController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
-    }   
+    }
 
 
     public function getTotalIngresos(Request $request){
